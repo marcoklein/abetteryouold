@@ -176,16 +176,18 @@ function submit() {
     // check if all fields are filled correctly
     var title = $("#challenge-title").val();
     if (title.length < MIN_TITLE_LENGTH) {
-        $("#title-too-short").show();
+        $("#title-too-short").fadeIn();
     } else if (title.length > MAX_TITLE_LENGTH) {
-        $("#title-too-long").show();
+        $("#title-too-long").fadeIn();
     }
     var description = $("#challenge-description").val();
     if (description.length < MIN_DESCRIPTION_LENGTH) {
-        $("#description-too-short").show();
+        $("#description-too-short").fadeIn();
     } else if (description.length > MAX_DESCRIPTION_LENGTH) {
-        $("#description-too-long").show();
+        $("#description-too-long").fadeIn();
     }
+    
+    // send data to server
 }
 
 /*** About Page ***/
