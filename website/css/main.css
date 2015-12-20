@@ -6,14 +6,12 @@
 
 
 
-
-
-
-
-
-
-
-
+.wrap-content {
+    display: -webkit-flex; /* Safari */
+    -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+    display: flex;
+    flex-wrap: wrap;
+}
 
 
 

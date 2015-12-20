@@ -1,3 +1,7 @@
+/* Handles all pages. */
+
+/* The class "hidden" is used for elements which are hidden if a page changes. */
+
 /*** Constants ***/
 var FADE_TIME = 400;
 var PAGES = ["home-page", "browse-page", "submit-page", "about-page"];
@@ -22,6 +26,11 @@ var INIT_PAGE = function (page) {
     }
 };
 
+var MIN_TITLE_LENGTH = 4;
+var MAX_TITLE_LENGTH = 50;
+var MIN_DESCRIPTION_LENGTH = 50;
+var MAX_DESCRIPTION_LENGTH = 1200;
+
 /*** Global Variables ***/
 
 /* Stores the id of the current page. */
@@ -39,18 +48,17 @@ function initHomePage() {
 
 /*** Browse Page ***/
 
-var COLS_PER_ROW = 3; // Columns per row
 var browseContainer;
 var challengeCount = 0;
-var currentRow;
 
 function initBrowsePage() {
     updateMenu("#browse-page-nav");
     browseContainer = $("#browse-container");
     
+    browseContainer.append("<div>Loading...</div>");
+    
     requestChallenges();
     
-    browseContainer.append("<div>Loading...</div>");
     
     /*for (var i = 0; i < 1; i++) {
         var row = $("<div>").addClass("row");
@@ -73,14 +81,15 @@ function challengesRecieved() {
     console.log("Recieved challenges.");
     // clean all challenge items
     challengeCount = 0;
-    while (browseContainer.firstChild) {
-        browseContainer.removeChild(browseContainer.firstChild);
+    var browseContainerNode = document.getElementById("browse-container");
+    while (browseContainerNode.firstChild) {
+        browseContainerNode.removeChild(browseContainerNode.firstChild);
     }
     
     /*** TEST ***/
     var challenges = [{name: "Test", description: "Test challenge"},
                       {name: "Another Challenge", description: "This is sparta"},
-                      {name: "Blabla", description: "Do this"}];
+                      {name: "Blabla", description: "Do this do that"}];
     
     applyChallenges(challenges);
 }
@@ -88,12 +97,13 @@ function challengesRecieved() {
 /* Applies the given challenges to the browse screen.
 They have the form
     - challenges [array]
+        - id
         - name
         - description
-        - duration [optional]
+        - duration [optional] (in days)
         - tags [array,optional]
             - tagname
-        - image[optional]
+        - image [optional]
 */
 function applyChallenges(challenges) {
     // add challenges
@@ -104,19 +114,34 @@ function applyChallenges(challenges) {
 
 /* Adds given challenge to the browse page. See applyChallenges for the format. */
 function addChallenge(challenge) {
-    if (challengeCount % COLS_PER_ROW === 0) {
-        // add a row
-        currentRow = $("<div>").addClass("row");
-        browseContainer.append(currentRow);
-    }
-    var col = $("<div>").addClass("col-md-4");
+    var col = $("<div>");
+    var content = $("<div>");
+    col.append(content);
     // content
-    col.append($("<h3>").text(challenge.name));
-    col.append($("<p>").text(challenge.description));
+    content.append($("<h4>").text(challenge.name));
+    //content.append($("<p>").text(challenge.description));
     // css
-    col.css("background-color", "yellow");
+    col.css("padding", "4px");
+    content.css("text-align", "center");
+    content.css("padding", "4px");
+    content.css("border", "4px solid green");
+    content.css("background-color", "#EEE");
+    content.css("width", "192px");
+    content.css("height", "128px");
+    content.css("cursor", "pointer");
+    content.onclick = function() {
+        console.log("Showing challenge \"" + challenge.name + "\"");
+        // change hash to show clicked challenge
+        location.hash = "#bla";
+    };
+    
+    content.attr("data-toggle", "tooltip");
+    content.attr("title", challenge.description);
+    content.attr("data-placement", "bottom");
+    content.tooltip();
+    
     // add
-    col.appendTo(currentRow);
+    browseContainer.append(col);
     challengeCount++;
 }
 
@@ -141,9 +166,27 @@ function search(text) {
 
 function initSubmitPage() {
     updateMenu("#submit-page-nav");
+    hideAlerts();
 }
 
-
+/* Submit button pressed */
+function submit() {
+    console.log("Submitting challenge...");
+    hideAlerts();
+    // check if all fields are filled correctly
+    var title = $("#challenge-title").val();
+    if (title.length < MIN_TITLE_LENGTH) {
+        $("#title-too-short").show();
+    } else if (title.length > MAX_TITLE_LENGTH) {
+        $("#title-too-long").show();
+    }
+    var description = $("#challenge-description").val();
+    if (description.length < MIN_DESCRIPTION_LENGTH) {
+        $("#description-too-short").show();
+    } else if (description.length > MAX_DESCRIPTION_LENGTH) {
+        $("#description-too-long").show();
+    }
+}
 
 /*** About Page ***/
 
@@ -161,7 +204,7 @@ function locationHashChanged() {
     var page = location.hash.substr(1); // cut away the hashtag
     console.log("Hash has changed to " + page);
     // analyse new hash - is it a page?
-    if (page.endsWith("page")) { // TODO replace endsWith - only supported by new browsers
+    if (endsWith(page, "page")) {
         /*for (p in PAGES) {
             if (PAGES[p].match(page)) {
                 console.log("Unknown page: " + page);
@@ -238,6 +281,9 @@ function updateMenu(active) {
         
 }
 
+function hideAlerts() {
+    $(".alert-hidden").hide();
+}
 
 /*** Helper ***/
 
@@ -252,6 +298,22 @@ function toClass(e) {
 
 function toHash(e) {
     return "#" + e;
+}
+
+/* Helper to test if the given string has the given ending. */
+function endsWith(string, ending) {
+    if (!ending || !string) {
+        return false;
+    }
+    for (var i = 0; i < ending.length; i++) {
+        if (i >= string.length) {
+            return false;
+        }
+        if (string.charAt(string.length - i) != ending.charAt(ending.length - i)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -273,6 +335,10 @@ function initialize() {
     } else {
         changePage(DEFAULT_PAGE, false); // default page to show
     }
+    
+    // activate tooltips
+    $('[data-toggle="tooltip"]').tooltip(); 
+    
     // recieve hash changes
     window.onhashchange = locationHashChanged;
 
