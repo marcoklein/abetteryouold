@@ -53,7 +53,7 @@
 <div class="input-group">
                         <input type="text" class="form-control" id="search-text" placeholder="Search">
                         <span class="input-group-btn">
-                            <div class="btn btn-default" onclick="search($('#search-text').text())">
+                            <div class="btn btn-default" onclick="search($('#search-text').val())">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </div>
                         </span>
@@ -85,14 +85,40 @@
         <div class="browse-page">
             <!-- Example row of columns -->
             <div class="container">
-                <h1>Browse</h1>
-                <div id="browse-container">
+                <div>
+                    <h3>Browse that shit</h3>
+                    <div id="browse-container" class="wrap-content">
+                    </div>
                 </div>
             </div>
         </div>
         <div class="submit-page">
+            <div class="container">
+                <h3>Share Your Challenge</h3>
+                <div id="submit-form">
+                    <div class="form-group">
+                        <label>Title (4 - 50 characters)</label>
+                        <input id="challenge-title" type="text" class="form-control" placeholder="Title of the challenge" />
+                        <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert">Title too short.</div>
+                        <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert">Title too long.</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Description (50 - 1200 characters)</label>
+                        <textarea id="challenge-description" class="form-control" placeholder="What is the idea of your challenge?" maxlength="200" rows="4" id="description" aria-describedby="description-addon"></textarea>
+                        <div id="description-too-short" class="alert-hidden alert alert-danger" role="alert">Description too short.</div>
+                        <div id="description-too-long" class="alert-hidden alert alert-danger" role="alert">Description too long.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <input id="challenge-tags" type="text" class="form-control tags" name="tags" data-role="tagsinput" placeholder="Tag" />
+                    </div>
+                    <button id="challenge-submit-button" onclick="submit()" class="btn btn-default">Submit</button>
+                </div>
+            </div>
         </div>
         <div class="about-page">
+            tbd
         </div>
 
 
