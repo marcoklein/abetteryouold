@@ -1,1 +1,0 @@
-To hide elements give them the class "hidden" (instead of hidden="true")
