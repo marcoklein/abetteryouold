@@ -1,0 +1,28 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+
+.wrap-content {
+    display: -webkit-flex; /* Safari */
+    -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+#detail-challenge-frame {
+    border: 2px solid blue;
+    background-color: #EEE;
+    padding-bottom: 20px;
+}
+
+.up-puffer {
+    margin-top: 20px;
+}
+
+
