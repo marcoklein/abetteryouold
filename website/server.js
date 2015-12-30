@@ -66,6 +66,31 @@ app.post("/list", function(request, response) {
     }
 });
 
+/* Load a single challenge. */
+app.post("/load", function(request, response) {
+    // check message
+    var id = request.body.challengeId;
+    
+    console.log("Load request for id " + id);
+    
+    
+    // send the requested challenges
+    response.writeHead(200, {"Content-Type": "text/json"});
+    
+    // TODO find challenge by id
+    ChallengeModel.find(function(err, challenges) {
+        if (err) return console.error(err);
+        for (var i = 0; i < challenges.length; i++) {
+            if (challenges[i]._id == id) {
+                response.end(JSON.stringify({status: "success", challenge: challenges[i]}));
+                return;
+            }
+        }
+        response.end(JSON.stringify({status: "error", msg: "not a valid id"}));
+    });
+    
+});
+
 /*** MongoDB ***/
 
 

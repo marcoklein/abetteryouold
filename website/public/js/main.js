@@ -14,6 +14,7 @@
 
 /*** Constants ***/
 var SERVER_URL = "http://localhost:8080";
+//var SERVER_URL = "http://87.106.14.30:8080";
 
 var FADE_TIME = 400;
 var PAGES = ["home-page", "browse-page", "submit-page", "about-page", "detail-challenge-module"];
@@ -70,7 +71,7 @@ function initBrowsePage() {
     browseContainer = $("#browse-container");
     
     $("#detailed-challenge").hide();
-    
+    // TODO FIXME Loading is shown if no challenges are provided
     browseContainer.append("<div>Loading...</div>");
     
     requestChallenges(challengesRecieved);
@@ -114,28 +115,31 @@ function applyChallenges(challenges) {
 
 /* Adds given challenge to the browse page. See applyChallenges for the format. */
 function addChallenge(challenge) {
-    var col = $("<div>");
+    var col = $("<div class='col-md-12'>");
     var content = $("<div>");
     col.append(content);
-    col.addClass("panel panel-default");
-    content.addClass("panel-body");
+    //col.addClass("panel panel-default");
+    col.addClass("challenge-box");
+    //content.addClass("panel-body");
+    //content.addClass("challenge-box");
     // content
-    content.append($("<h4>").text(challenge.title));
+    content.append($("<h2>").text(challenge.title));
+    // TODO center challenge boxes
     //content.append($("<p>").text(challenge.description));
     // css
     col.css("margin", "4px");
-    col.css("border", "2px solid blue");
-    col.css("background-color", "#EEE");
-    content.css("text-align", "center");
+    col.css("cursor", "pointer");
+    //col.css("background-color", "#EEE");
+    //content.css("text-align", "center");
     content.css("padding", "4px");
-    content.css("width", "192px");
-    content.css("height", "128px");
-    content.css("cursor", "pointer");
+    content.css("width", "100%");
+    content.css("height", "100%");
     
-    content.attr("onclick", "hash(\"#id" + challenge._id + "\")");
-    content.attr("data-toggle", "tooltip");
+    col.attr("onclick", "hash(\"#id" + challenge._id + "\")");
+    /*content.attr("data-toggle", "tooltip");
     content.attr("title", challenge.description);
-    content.attr("data-placement", "bottom");
+    content.attr("data-placement", "bottom");*/
+    content.append(challenge.description);
     content.tooltip();
     
     // add
@@ -173,6 +177,11 @@ function showDetailedChallenge(challengeId) {
         console.log("Challenge not stored - loading challenge with id " + challengeId);
         // load challenge
         loadChallenge(challengeId, function(challenge) {
+            if (challengeId != challenge._id) {
+                // something went totally wrong
+                throw console.error("Wrong challenge id.");
+            }
+            storedChallenges[challengeId] = challenge;
             showDetailedChallenge(challenge._id);
         });
         return; // wait for callback of load challenge
@@ -270,6 +279,30 @@ function initAboutPage() {
 
 /*** Main Control ***/
 
+// TODO write a function to scroll the menu with th page but show it if the user scrolls up
+// (see http://jsfiddle.net/T6nZe/)
+
+/*$(function() {
+    var win = $(window);
+    var filter = $(".navbar");
+    var upScrollTop = null;
+    var lastTopScroll = 0;
+    
+    win.scroll(function(data, second) {
+        console.log("Windows scrolled: " + win.scrollTop());
+        if (win.scrollTop() > lastTopScroll) {
+            // user scrolled down - nothing happens
+            lastTopScroll = win.scrollTop();
+        } else {
+            console.log("We scrolled up!");
+            if (upScrollTop == null) {
+                // first time we scroll up
+                console.log("First time scrolling up!");
+                upScrollTop = lastTopScroll;
+            }
+        }
+    });
+});*/
 
 /* Handles hash changes of the url. You can get the hash by location.hash */
 function locationHashChanged() {
@@ -405,21 +438,36 @@ function sendNewChallenge(challenge) {
 
 /* Requests the challenge with the given id and calls the callback method with the challange as parameter and stores it.*/
 function loadChallenge(challengeId, callback) {
-    // TODO load challenges from server
     console.log("Loading challenge with id: " + challengeId);
     
-    /*var request = new XMLHttpRequest();
-    request.open("GET", SERVER_URL + "submit", true);
-    request.onreadystatechange = function() {
-        if (request.readyState == 4 && request.status == 200) {
-            console.log("Challenge recieved.");
-            var challenge = JSON.parse(request.responseText).challenge;
-            storedChallenges[challenge.id] = challenge; // store challenge
-            callback(challenge);
-        }
+    var data = {
+        challengeId: challengeId
     };
-    request.send();*/
-        
+    ajaxRequest(SERVER_URL + "/load", data, function(response) {
+        if (response.status == "success") {
+            callback(response.challenge); // extract challenge
+        } else {
+            console.log("Invalid id - changing screen");
+            changePageFade(DEFAULT_PAGE);
+        }
+    });
+    
+}
+
+function ajaxRequest(url, data, successCallback) {
+    $.ajax({
+        url: url,
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function(response) {
+            console.log("Ajax response: " + JSON.stringify(response));
+            successCallback(response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("Error " + textStatus + " " + errorThrown);
+        }
+    });
 }
 
 /* Requests challenges from the server. */

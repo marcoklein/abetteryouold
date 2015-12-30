@@ -4,6 +4,63 @@
    Author's custom styles
    ========================================================================== */
 
+body {
+    background-image: url("../img/background.png");
+}
+
+/*.intro {
+    padding: 100px 0;
+    display: table;
+    width: 100%;
+    height: 100%;
+    background: url("../img/intro-bg.jpg") no-repeat bottom center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}*/
+
+
+/* resize challenge boxes */
+.challenge-box {
+    border-radius: 30px;
+    height: 128px;
+    background-color: #EEE;
+    display: block;
+}
+
+.challenge-box::after {
+    content: "";
+    border-radius: 30px;
+    background-image: url("../img/icon/acoustic4.png");
+    opacity: 0.3;
+    background-repeat: no-repeat;
+    background-size: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: 1;
+}
+
+.challenge-box:hover {
+    z-index: 2;
+    height: 136px;
+    top: -4;
+    left: -4;
+    background-color: #DDD;
+}
+
+.challenge-box > div > h2 {
+    z-index: 4;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 1);
+}
+
+.back-element {
+    color: white;
+}
 
 
 .wrap-content {

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <style>
         body {
-            /*padding-top: 50px;*/
+            /*padding-top: 50px*/;
             padding-bottom: 20px;
         }
     </style>
@@ -66,19 +66,18 @@
     
 
     <div class="start-hidden" hidden="true">
-
         <div class="home-page">
             <div class="jumbotron">
                 <div class="container">
                     <h1>Try Something New!</h1>
-                    <p>Do you want to make new experiences? Then try something new - at least for some days. Share your ideas for challenges right or get inspired by ideas of others!</p>
+                    <p>Do you want to make new experiences? Then try something new - at least for some days. Share your ideas for challenges or get inspired by ideas of others!</p>
                     <p><a class="btn btn-primary btn-lg" href="#browse-page" role="button">Show Challenges &raquo;</a></p>
                 </div>
             </div>
             <div class="container">
+                <h1>This is Sparta</h1>
+                asdfasdf
                 <div>
-                    <h1>Learn More</h1>
-                    <p>Or learn more about the concept of challenges for life and the underlying philosophy of this project.</p>
                     <p><a class="btn btn-primary btn-lg" href="#about-page" role="button">Tell Me More &raquo;</a></p>
                 </div>
             </div>
@@ -87,13 +86,13 @@
             <!-- Example row of columns -->
             <div class="container">
                 <div>
-                    <h3>Browse that shit</h3>
-                    <div id="browse-container" class="wrap-content">
+                    <h1 class="back-element"><font size="26px">Browse that shit</font></h1>
+                    <div id="browse-container" class="row">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="detail-challenge-module">
+        <div class="detail-challenge-module background-default">
             <div class="container up-puffer">
                 <div class="row">
                     <div class="col-md-8 panel panel-default" id="detail-challenge-frame">
@@ -116,33 +115,46 @@
         
         <div class="submit-page">
             <div class="container">
-                <h3>Share Your Challenge</h3>
-                <div id="submit-form">
-                    <div class="form-group">
-                        <label>Title (4 - 50 characters)</label>
-                        <input id="challenge-title" type="text" class="form-control" placeholder="Title of the challenge" required="true" maxlength="50"/>
-                        <small><span id="challenge-title-characters">0</span> characters</small>
-                        <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert">Title too short.</div>
-                        <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert">Title too long.</div>
+                <h3 class="back-element">Share Your Challenge</h3>
+                <div id="submit-form" class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label class="back-element">Title (4 - 50 characters)</label>
+                            <input id="challenge-title" type="text" class="form-control" placeholder="Title of the challenge" required="true" maxlength="50"/>
+                            <small class="back-element"><span id="challenge-title-characters">0</span> characters</small>
+                            <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert">Title too short.</div>
+                            <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert">Title too long.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="back-element">Author (2 - 30 characters)</label>
+                            <input id="challenge-title" type="text" class="form-control" placeholder="Your name" required="true" maxlength="50"/>
+                            <small class="back-element"><span id="challenge-title-characters">0</span> characters</small>
+                            <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert">Title too short.</div>
+                            <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert">Title too long.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="back-element">Tags</label>
+                            <input id="challenge-tags" type="text" class="form-control tags" name="tags" data-role="tagsinput" placeholder="Tag" />
+                        </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label>Description (50 - 1200 characters)</label>
-                        <textarea id="challenge-description" class="form-control" placeholder="What is the idea of your challenge?" required="true" maxlength="1200" rows="4" id="description" aria-describedby="description-addon"></textarea>
-                        <small><span id="challenge-description-characters">0</span> characters</small>
-                        <div id="description-too-short" class="alert-hidden alert alert-danger" role="alert">Description too short.</div>
-                        <div id="description-too-long" class="alert-hidden alert alert-danger" role="alert">Description too long.</div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="back-element">Description (50 - 1200 characters)</label>
+                            <textarea id="challenge-description" class="form-control" placeholder="What is the idea of your challenge?" required="true" maxlength="1200" rows="10" id="description" aria-describedby="description-addon"></textarea>
+                            <small class="back-element"><span id="challenge-description-characters">0</span> characters</small>
+                            <div id="description-too-short" class="alert-hidden alert alert-danger" role="alert">Description too short.</div>
+                            <div id="description-too-long" class="alert-hidden alert alert-danger" role="alert">Description too long.</div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Tags</label>
-                        <input id="challenge-tags" type="text" class="form-control tags" name="tags" data-role="tagsinput" placeholder="Tag" />
-                    </div>
-                    <button id="challenge-submit-button" onclick="submit()" class="btn btn-default">Submit</button>
                 </div>
+                <button id="challenge-submit-button" onclick="submit()" class="btn btn-default">Submit</button>
             </div>
         </div>
         <div class="about-page">
-            <div class="container">
+            <div class="container back-element">
                 tbd
             </div>
         </div>
@@ -155,7 +167,7 @@
 
         <hr>
 
-        <footer>
+        <footer class="back-element">
             <p>&copy; Marco Klein 2015</p>
         </footer>
     </div>
