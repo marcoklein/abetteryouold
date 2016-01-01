@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <style>
         body {
-            padding-top: 50px;
+            /*padding-top: 50px*/;
             padding-bottom: 20px;
         }
     </style>
@@ -31,7 +31,7 @@
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -51,34 +51,123 @@
                 </ul>
                 <div class="navbar-form navbar-right browse-page start-hidden" hidden="true">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="search-box" placeholder="Search">
-                        <span class="input-group-btn">
+                    <input type="text" class="form-control" id="search-box" placeholder="Search">
+                    <span class="input-group-btn">
                         <div class="btn btn-default" onclick="search($('#search-box').val())">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </div>
+                        </div>
                     </span>
+                    </div>
+                </div>
+            </div>
+            <!--/.navbar-collapse -->
+        </div>
+    </nav>
+    
+
+    <div class="start-hidden" hidden="true">
+        <div class="home-page">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>Try Something New!</h1>
+                    <p>Do you want to make new experiences? Then try something new - at least for some days. Share your ideas for challenges or get inspired by ideas of others!</p>
+                    <p><a class="btn btn-primary btn-lg" href="#browse-page" role="button">Show Challenges &raquo;</a></p>
+                </div>
+            </div>
+            <div class="container">
+                <h1>This is Sparta</h1>
+                asdfasdf
+                <div>
+                    <p><a class="btn btn-primary btn-lg" href="#about-page" role="button">Tell Me More &raquo;</a></p>
                 </div>
             </div>
         </div>
-        <!--/.navbar-collapse -->
+        <div class="browse-page">
+            <!-- Example row of columns -->
+            <div class="container">
+                <div>
+                    <h1 class="back-element"><font size="26px">Browse that shit</font></h1>
+                    <div id="browse-container" class="row">
+                    </div>
+                </div>
+            </div>
         </div>
-    </nav>
+        <div class="detail-challenge-module background-default">
+            <div class="container up-puffer">
+                <div class="row">
+                    <div class="col-md-8 panel panel-default" id="detail-challenge-frame">
+                        <div class="panel-body">
+                            <h3 id="detail-challenge-title"></h3>
+                            <small>Shared by <a href="#">someone</a>.</small>
+                            <div id="detail-challenge-description" class="up-puffer"></div>
+                            <div class="up-puffer">
+                                <span class="glyphicon glyphicon-tag" aria-label="tags" aria-hidden="true">Tags</span>
+                                <span id="detail-challenge-tags">[None]</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="submit-page">
+            <div class="container">
+                <h3 class="back-element">Share Your Challenge</h3>
+                <div id="submit-form" class="row">
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <label class="back-element">Title (4 - 50 characters)</label>
+                            <input id="challenge-title" type="text" class="form-control" placeholder="Title of the challenge" required="true" maxlength="50"/>
+                            <small class="back-element"><span id="challenge-title-characters">0</span> characters</small>
+                            <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert">Title too short.</div>
+                            <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert">Title too long.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="back-element">Author (2 - 30 characters)</label>
+                            <input id="challenge-title" type="text" class="form-control" placeholder="Your name" required="true" maxlength="50"/>
+                            <small class="back-element"><span id="challenge-title-characters">0</span> characters</small>
+                            <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert">Title too short.</div>
+                            <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert">Title too long.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="back-element">Tags</label>
+                            <input id="challenge-tags" type="text" class="form-control tags" name="tags" data-role="tagsinput" placeholder="Tag" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="back-element">Description (50 - 1200 characters)</label>
+                            <textarea id="challenge-description" class="form-control" placeholder="What is the idea of your challenge?" required="true" maxlength="1200" rows="10" id="description" aria-describedby="description-addon"></textarea>
+                            <small class="back-element"><span id="challenge-description-characters">0</span> characters</small>
+                            <div id="description-too-short" class="alert-hidden alert alert-danger" role="alert">Description too short.</div>
+                            <div id="description-too-long" class="alert-hidden alert alert-danger" role="alert">Description too long.</div>
+                        </div>
+                    </div>
+                </div>
+                <button id="challenge-submit-button" onclick="submit()" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+        <div class="about-page">
+            <div class="container back-element">
+                tbd
+            </div>
+        </div>
 
 
-    <div class="about-page">
-        <div class="container">
-            tbd
-        </div>
     </div>
-
-
 
 
     <div class="container">
 
         <hr>
 
-        <footer>
+        <footer class="back-element">
             <p>&copy; Marco Klein 2015</p>
         </footer>
     </div>
