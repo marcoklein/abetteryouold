@@ -1,0 +1,13 @@
+body { 
+  background: url(../img/beach2.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#detail-challenge-frame {
+    border: 2px solid blue;
+    background-color: #EEE;
+    padding-bottom: 20px;
+}

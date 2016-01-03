@@ -1,5 +1,4 @@
 function initSubmitPage() {
-    updateMenu("#submit-page-nav");
     hideAlerts();
 }
 
@@ -25,6 +24,24 @@ function submit() {
         $("#description-too-long").fadeIn();
         valid = false;
     }
+    var tags = "" + $("#challenge-tags").val();
+    tags = tags.split(","); // extract keywords
+    if (tags.length > MAX_TAGS) {
+        $("#tags-too-long").fadeIn();
+        valid = false;
+    }
+    console.log("Number of keywords: " + tags.length);
+    console.log(tags);
+    // set up keywords
+    for (var i = 0; i < tags.length; i++) {
+        tags[i] = trimTag(tags[i]);
+        if (tags[i].length > MAX_TAG_LENGTH) {
+            $("#tag-too-long").fadeIn();
+            valid = false;
+            break;
+        }
+    }
+    
     
     if (!valid) {
         return;
@@ -34,11 +51,15 @@ function submit() {
     var challenge = {};
     challenge.title = title;
     challenge.description = description;
-    // TODO set challenge tags image and duration
+    challenge.tags = keywords;
     challenge.duration = null;
-    challenge.tags = null;
     challenge.image = null;
     sendNewChallenge(challenge);
+}
+
+/* Removes leading and trailing whitespaces. */
+function trimTag(tags) {
+    return tags.replace(/^\s+|\s+$/g,"");
 }
 
 /* update written characters for challenge title */
@@ -75,3 +96,5 @@ $("#challenge-tags").keypress(function(e) {
 function hideAlerts() {
     $(".alert-hidden").hide();
 }
+
+$(document).ready = initSubmitPage();

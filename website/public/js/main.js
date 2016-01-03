@@ -18,9 +18,11 @@ var SERVER_URL = "http://localhost:8080";
 
 
 var MIN_TITLE_LENGTH = 4;
-var MAX_TITLE_LENGTH = 50;
+var MAX_TITLE_LENGTH = 40;
 var MIN_DESCRIPTION_LENGTH = 50;
 var MAX_DESCRIPTION_LENGTH = 1200;
+var MAX_TAGS = 20;
+var MAX_TAG_LENGTH = 20;
 
 
 /*** Global Variables ***/

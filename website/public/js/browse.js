@@ -1,10 +1,9 @@
-
+const CHALLENGES_PER_ROW = 1; // not implemented yet
 var browseContainer;
 var challengeCount = 0;
 
 
 function initBrowsePage() {
-    updateMenu("#browse-page-nav");
     browseContainer = $("#browse-container");
     
     $("#detail-challenge").hide();
@@ -52,35 +51,36 @@ function applyChallenges(challenges) {
 
 /* Adds given challenge to the browse page. See applyChallenges for the format. */
 function addChallenge(challenge) {
-    var col = $("<div class='col-md-12'>");
+    // add a row
+    var row = $("<div>");
+    row.addClass("row");
+    var col = $("<div>");
+    col.addClass("col-md-12");
     var content = $("<div>");
-    col.append(content);
-    //col.addClass("panel panel-default");
-    col.addClass("challenge-box");
-    //content.addClass("panel-body");
-    //content.addClass("challenge-box");
-    // content
-    content.append($("<h2>").text(challenge.title));
-    // TODO center challenge boxes
-    //content.append($("<p>").text(challenge.description));
-    // css
-    col.css("margin", "4px");
-    col.css("cursor", "pointer");
-    //col.css("background-color", "#EEE");
-    //content.css("text-align", "center");
-    content.css("padding", "4px");
-    content.css("width", "100%");
-    content.css("height", "100%");
+    content.addClass("challenge-box");
+    var icon = $("<span>");
+    icon.addClass("challenge-icon");
     
-    col.attr("onclick", "hash(\"#id" + challenge._id + "\")");
-    /*content.attr("data-toggle", "tooltip");
-    content.attr("title", challenge.description);
-    content.attr("data-placement", "bottom");*/
-    content.append(challenge.description);
-    content.tooltip();
+    // define onclick action
+    col.click(function() {
+        document.location.href = "./detail.html#" + challenge._id;
+    });
+    
+    // add elements
+    var title = $("<h1>");
+    title.text(challenge.title);
+    
+    var description = $("<p>");
+    description.text(challenge.description);
     
     // add
-    browseContainer.append(col);
+    content.append(title);
+    content.append(description);
+    
+    content.append(icon);
+    col.append(content);
+    row.append(col);
+    browseContainer.append(row);
     challengeCount++;
 }
 
