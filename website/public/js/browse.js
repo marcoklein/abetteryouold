@@ -59,7 +59,9 @@ function addChallenge(challenge) {
     var content = $("<div>");
     content.addClass("challenge-box");
     var icon = $("<span>");
-    icon.addClass("challenge-icon");
+    // set background image
+    icon.addClass("challenge-box-icon");
+    icon.css("background-image", "url('../img/icon/alto.png')");
     
     // define onclick action
     col.click(function() {
@@ -76,10 +78,11 @@ function addChallenge(challenge) {
     // add
     content.append(title);
     content.append(description);
-    
     content.append(icon);
+    
     col.append(content);
     row.append(col);
+    
     browseContainer.append(row);
     challengeCount++;
 }

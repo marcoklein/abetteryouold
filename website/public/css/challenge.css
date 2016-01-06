@@ -9,6 +9,7 @@
     display: block;
     cursor: pointer;
     z-index: 4;
+    position: relative;
 }
 
 .challenge-box:hover {
@@ -35,18 +36,17 @@
     overflow: hidden;
 }
 
-.challenge-icon {
+.challenge-box-icon {
     content: "";
     background-image: url("../img/icon/flowers12.png");
-    opacity: 0.3;
     background-repeat: no-repeat;
     background-position: right;
     background-size: contain;
+    opacity: 0.3;
     position: absolute;
-    display: block;
-    top: 4px;
-    bottom: 10px;
-    left: 16px;
-    right: 16px;
-    z-index: 1;
+    top: 8px;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    z-index: 7;
 }
