@@ -60,8 +60,10 @@ function addChallenge(challenge) {
     content.addClass("challenge-box");
     var icon = $("<span>");
     // set background image
-    icon.addClass("challenge-box-icon");
-    icon.css("background-image", "url('../img/icon/alto.png')");
+    icon.addClass("challenge-box-image");
+    if (challenge.image && challenge.image != "") {
+        icon.css("background-image", "url('../img/icon/" + challenge.image + "')");
+    }
     
     // define onclick action
     col.click(function() {

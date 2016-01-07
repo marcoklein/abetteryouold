@@ -51,9 +51,9 @@ function submit() {
     var challenge = {};
     challenge.title = title;
     challenge.description = description;
-    challenge.tags = keywords;
+    challenge.tags = tags;
     challenge.duration = null;
-    challenge.image = null;
+    challenge.image = "alto.png";
     sendNewChallenge(challenge);
 }
 

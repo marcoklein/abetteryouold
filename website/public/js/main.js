@@ -61,6 +61,12 @@ var storedChallenges = {};
     });
 });*/
 
+/* Manages challenge storage. */
+var Storage = {
+    requestChallenge: loadChallenge,
+    requestAllChallenges: requestChallenges
+};
+
 
 /*** Network ***/
 
@@ -117,10 +123,9 @@ function ajaxRequest(url, data, successCallback) {
     });
 }
 
-/* Requests challenges from the server. */
+/* Requests all challenges from the server. The callback will get all challenges as an array. */
 function requestChallenges(callback) {
     console.log("Requesting challenges.");
-    // as test
     
     var data = {list: "all"};
     
