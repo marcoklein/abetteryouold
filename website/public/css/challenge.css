@@ -48,9 +48,6 @@ animation: scaleIt 1s ease-in;*/
   100% { transform: scale(1.02); }
 }*/
 
-.backgroundAnimated{    
-    background-image:none !important;
-}
 
 /* challenge title */
 .challenge-box > h1 {

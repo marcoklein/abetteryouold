@@ -1,12 +1,12 @@
-const CHALLENGES_PER_ROW = 1; // not implemented yet
+var CHALLENGES_PER_ROW = 1; // not implemented yet
 var browseContainer;
 var challengeCount = 0;
 
 
 function initBrowsePage() {
     browseContainer = $("#browse-container");
+    updateMenu("#browse-nav");
     
-    $("#detail-challenge").hide();
     // TODO FIXME Loading is shown if no challenges are provided
     browseContainer.append("<div>Loading...</div>");
     
@@ -55,6 +55,7 @@ function addChallenge(challenge) {
     var row = $("<div>");
     row.addClass("row");
     var col = $("<div>");
+    col.attr("rel", "content");
     col.addClass("col-md-12");
     var content = $("<div>");
     content.addClass("challenge-box");
@@ -66,9 +67,12 @@ function addChallenge(challenge) {
     }
     
     // define onclick action
-    col.click(function() {
-        document.location.href = "./detail.html#" + challenge._id;
-    });
+    col.attr("href", "detail#" + challenge._id);
+    /*col.click(function () {
+        loadPage("detail#" + challenge._id);
+    });*/
+    col.click(linkContentAction);
+    //col.on("click", linkContentAction());
     
     // add elements
     var title = $("<h1>");
@@ -134,4 +138,5 @@ function showDetailedChallenge(challengeId) {
     $("#detail-challenge-description").text(challenge.description);
 }
 
-$(document).ready = initBrowsePage();
+// start
+initBrowsePage();

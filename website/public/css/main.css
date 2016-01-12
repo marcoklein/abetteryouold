@@ -17,6 +17,24 @@
     -o-background-size: cover;
 }*/
 
+html,
+body {
+    background: url(../img/beach2.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
+    
+    height: 100%;
+    opacity: 1.0;
+    -webkit-transition: background 1s ease;
+    -moz-transition: background 1s ease;
+    -o-transition: background 1s ease;
+    -ms-transition: background 1s ease;
+    transition: background 1s ease;
+}
+
 .page-heading {
     font-weight: bold;
     font-size: 40px;
@@ -40,11 +58,95 @@
     flex-wrap: wrap;
 }
 
-
-
-
 .up-puffer {
     margin-top: 20px;
 }
 
+/* Custom Navbar */
+
+.navbar-default {
+    border-bottom: 3px solid rgba(255, 255, 0, 1);
+    background: rgba(0, 0, 0, 1);
+    
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+}
+
+.navbar-default.top-nav-collapse {
+    border-bottom: 3px solid rgba(255, 255, 0, 1);
+    background: rgba(0, 0, 0, 1);
+}
+
+.navbar-default .navbar-header .navbar-brand {
+    text-transform: uppercase;
+    font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+    font-weight: 700;
+    color: #fff;
+}
+
+.navbar-default .navbar-header .navbar-brand:hover,
+.navbar-default .navbar-header .navbar-brand:focus {
+    color: #ff0;
+}
+
+.navbar-default .navbar-toggle {
+    padding: 4px 6px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.navbar-default a {
+    color: #fff;
+}
+
+.navbar-default .nav li a {
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+}
+
+.navbar-default .nav li a:hover {
+    outline: 0;
+    color: rgba(255,255,255,1);
+    background-color: transparent;
+}
+
+.navbar-default .nav li a:focus,
+.navbar-default .nav li a:active {
+    outline: 0;
+    background-color: transparent;
+}
+
+.navbar-default .nav li.active {
+    outline: 0;
+}
+
+.navbar-default .nav li.active a {
+    background-color: rgba(255,255,255,.3);
+}
+
+.navbar-default .nav li.active a:hover {
+    color: #fff;
+}
+
+@media(min-width:768px) {
+    .navbar-default {
+        padding: 0px 0;
+        border-bottom: 3px solid rgba(255, 255, 0, 1);
+        letter-spacing: 1px;
+        background: rgba(0, 0, 0, 1);
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .navbar-default.top-nav-collapse {
+        padding: 0;
+        border-bottom: 3px solid rgba(255, 255, 0, 1);
+        background: rgba(0, 0, 0, 1);
+    }
+}
 

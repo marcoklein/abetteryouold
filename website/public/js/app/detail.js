@@ -1,5 +1,6 @@
 function initDetailPage() {
     console.log("Initializing detail page.");
+    updateMenu("#browse-nav");
     // hide challenge box in the beginning
     //$(".challenge-detail-box").css("opacity", "0");
     
@@ -29,5 +30,4 @@ function updateChallengeInformation(challenge) {
 }
 
 
-
-$(document).ready = initDetailPage();
+initDetailPage();

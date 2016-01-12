@@ -1,4 +1,5 @@
 function initSubmitPage() {
+    updateMenu("#submit-nav");
     hideAlerts();
 }
 

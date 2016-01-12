@@ -1,23 +1,11 @@
 
-// jQuery for page scrolling feature - requires jQuery Easing plugin
-$(function() {
-    $('a.page-scroll').bind('click', function(event) {
-        var $anchor = $(this);
-        $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top - 50
-        }, 1500, 'easeInOutExpo');
-        event.preventDefault();
-    });
-});
-
-
 /* fix vertical when not overflow
 call fullscreenFix() if .fullscreen content changes */
-function fullscreenFix(){
+function fullscreenFix() {
     var h = $('body').height();
     // set .fullscreen height
-    $(".content-b").each(function(i){
-        if($(this).innerHeight() > h){
+    $(".content-b").each(function (i) {
+        if ($(this).innerHeight() > h) {
             $(this).closest(".fullscreen").addClass("overflow");
         }
     });
@@ -26,9 +14,9 @@ $(window).resize(fullscreenFix);
 fullscreenFix();
 
 /* resize background images */
-function backgroundResize(){
+function backgroundResize() {
     var windowH = $(window).height();
-    $(".background").each(function(i){
+    $(".background").each(function (i) {
         var path = $(this);
         // variables
         var contW = path.width();
@@ -41,7 +29,7 @@ function backgroundResize(){
         diff = diff ? diff : 0;
         // remaining height to have fullscreen image only on parallax
         var remainingH = 0;
-        if(path.hasClass("parallax")){
+        if (path.hasClass("parallax")) {
             var maxH = contH > windowH ? contH : windowH;
             remainingH = windowH - contH;
         }
@@ -49,7 +37,7 @@ function backgroundResize(){
         imgH = contH + remainingH + diff;
         imgW = imgH * ratio;
         // fix when too large
-        if(contW > imgW){
+        if (contW > imgW) {
             imgW = contW;
             imgH = imgW / ratio;
         }

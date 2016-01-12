@@ -18,11 +18,12 @@
     <style>
         body {
             padding-top: 50px;
-            /*padding-bottom: 20px;*/
         }
     </style>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/challenge.css">
 
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
@@ -31,30 +32,31 @@
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top nav-down" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand" href="./index.html">A Better You</a>
+                <a class="navbar-brand" href="home" rel="content">A Better You</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="./index.html">Home</a></li>
-                    <li><a href="./browse.html">Browse</a></li>
-                    <li><a href="./submit.html">Submit</a></li>
-                    <li class="active"><a href="./about.html">About</a></li>
+                    <li id="home-nav"><a href="home" rel="content">Home</a></li>
+                    <li id="browse-nav"><a href="browse" rel="content">Browse</a></li>
+                    <li id="submit-nav"><a href="submit" rel="content">Submit</a></li>
+                    <li id="about-nav"><a href="about" rel="content">About</a></li>
                 </ul>
             </div>
             <!--/.navbar-collapse -->
         </div>
     </nav>
     
-    
+    <!-- will only be shown if the page is shown for the first time -->
+    <span id="loading">Loading...</span>
+    <!-- Content will be loaded in here using ajax. -->
+    <span id="main-content"></span>
     
     <div class="container">
 
@@ -71,6 +73,8 @@
     </script>
 
     <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/jquery.easing.min.js"></script>
+    <!--<script src="js/vendor/jquery.bootstrap-autohidingnavbar.js"></script>-->
 
     <script src="js/main.js"></script>
 
