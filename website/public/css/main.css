@@ -46,7 +46,7 @@ body {
 
 
 .feature-element {
-    color: white;
+    color: #D0D102;
     /*color: #FFFF00;*/
 }
 
@@ -54,6 +54,15 @@ body {
     color: white;
 }
 
+.dark-background {
+    padding-bottom: 8px;
+    /*border-radius: 16px;*/
+    /*background-color: #32742C;*/
+}
+
+.dark-element {
+    color: #00A1CB;
+}
 
 
 .wrap-content {
