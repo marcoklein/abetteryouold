@@ -18,11 +18,13 @@
     <style>
         body {
             padding-top: 50px;
-            padding-bottom: 20px;
         }
     </style>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/challenge.css">
+    <link rel="stylesheet" href="css/home.css">
 
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
 </head>
@@ -40,122 +42,80 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#home-page">A Better You</a>
+                <a class="navbar-brand" href="./index.html">A Better You</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li id="home-page-nav"><a href="#home-page">Home</a></li>
-                    <li id="browse-page-nav"><a href="#browse-page">Browse</a></li>
-                    <li id="submit-page-nav"><a href="#submit-page">Submit</a></li>
-                    <li id="about-page-nav"><a href="#about-page">About</a></li>
+                    <li class="active"><a href="./index.html">Home</a></li>
+                    <li><a href="./browse.html">Browse</a></li>
+                    <li><a href="./submit.html">Submit</a></li>
+                    <li><a href="./about.html">About</a></li>
                 </ul>
-                <div class="navbar-form navbar-right browse-page start-hidden" hidden="true">
-                    <div class="input-group">
-                    <input type="text" class="form-control" id="search-box" placeholder="Search">
-                    <span class="input-group-btn">
-                        <div class="btn btn-default" onclick="search($('#search-box').val())">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </div>
-                    </span>
-                    </div>
-                </div>
             </div>
             <!--/.navbar-collapse -->
         </div>
     </nav>
     
-
-    <div class="start-hidden" hidden="true">
-
-        <div class="home-page">
-            <div class="jumbotron">
-                <div class="container">
-                    <h1>Try Something New!</h1>
-                    <p>Do you want to make new experiences? Then try something new - at least for some days. Share your ideas for challenges right or get inspired by ideas of others!</p>
-                    <p><a class="btn btn-primary btn-lg" href="#browse-page" role="button">Show Challenges &raquo;</a></p>
+    <div class="fullscreen background" style="background-image:url('./img/endless.jpg');" data-img-width="2048" data-img-height="1536">
+        <div class="content-a">
+            <div class="content-b">
+                <div class="feature-heading">
+                    Try Something New
                 </div>
-            </div>
-            <div class="container">
-                <div>
-                    <h1>Learn More</h1>
-                    <p>Or learn more about the concept of challenges for life and the underlying philosophy of this project.</p>
-                    <p><a class="btn btn-primary btn-lg" href="#about-page" role="button">Tell Me More &raquo;</a></p>
-                </div>
+                <h3>Challenge yourself.</h3>
+                <br>
+                <a href="#challenges" class="btn btn-circle page-scroll">
+                    <i class="fa fa-angle-double-down animated"></i>
+                </a>
             </div>
         </div>
-        <div class="browse-page">
-            <!-- Example row of columns -->
-            <div class="container">
-                <div>
-                    <h3>Browse that shit</h3>
-                    <div id="browse-container" class="wrap-content">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="detail-challenge-module">
-            <div class="container up-puffer">
-                <div class="row">
-                    <div class="col-md-8 panel panel-default" id="detail-challenge-frame">
-                        <div class="panel-body">
-                            <h3 id="detail-challenge-title"></h3>
-                            <small>Shared by <a href="#">someone</a>.</small>
-                            <div id="detail-challenge-description" class="up-puffer"></div>
-                            <div class="up-puffer">
-                                <span class="glyphicon glyphicon-tag" aria-label="tags" aria-hidden="true">Tags</span>
-                                <span id="detail-challenge-tags">[None]</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        
-        <div class="submit-page">
-            <div class="container">
-                <h3>Share Your Challenge</h3>
-                <div id="submit-form">
-                    <div class="form-group">
-                        <label>Title (4 - 50 characters)</label>
-                        <input id="challenge-title" type="text" class="form-control" placeholder="Title of the challenge" required="true" maxlength="50"/>
-                        <small><span id="challenge-title-characters">0</span> characters</small>
-                        <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert">Title too short.</div>
-                        <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert">Title too long.</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Description (50 - 1200 characters)</label>
-                        <textarea id="challenge-description" class="form-control" placeholder="What is the idea of your challenge?" required="true" maxlength="1200" rows="4" id="description" aria-describedby="description-addon"></textarea>
-                        <small><span id="challenge-description-characters">0</span> characters</small>
-                        <div id="description-too-short" class="alert-hidden alert alert-danger" role="alert">Description too short.</div>
-                        <div id="description-too-long" class="alert-hidden alert alert-danger" role="alert">Description too long.</div>
-                    </div>
-                    <div class="form-group">
-                        <label>Tags</label>
-                        <input id="challenge-tags" type="text" class="form-control tags" name="tags" data-role="tagsinput" placeholder="Tag" />
-                    </div>
-                    <button id="challenge-submit-button" onclick="submit()" class="btn btn-default">Submit</button>
-                </div>
-            </div>
-        </div>
-        <div class="about-page">
-            <div class="container">
-                tbd
-            </div>
-        </div>
-
-
     </div>
+    
+    <div id="challenges" class="container" style="background: black">
+        <h1 class="back-element">Popular Challenges</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="challenge-box">
+                    <span class="challenge-box-icon"></span>
+                    <h1>This is SPARTA</h1>
+                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
 
+Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetue</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="challenge-box">
+                    <h1>This is SPARTA</h1>
+                    <p>Wowowwowoowwowoo wtf is this shit</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="challenge-box">
+                    <h1>This is SPARTA</h1>
+                    <p>Wowowwowoowwowoo wtf is this shit</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="challenge-box">
+                    <h1>This is SPARTA</h1>
+                    <p>Wowowwowoowwowoo wtf is this shit</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <p class="back-element">Don't get lost in life.</p>
+    </div>
+    
 
     <div class="container">
 
         <hr>
 
-        <footer>
+        <footer class="back-element">
             <p>&copy; Marco Klein 2015</p>
         </footer>
     </div>
@@ -166,8 +126,10 @@
     </script>
 
     <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/jquery.easing.min.js"></script>
 
     <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
