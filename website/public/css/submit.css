@@ -1,6 +1,6 @@
 html, body {
     /*background-image: url(../img/sandstone.jpg);*/
-    background-color: #3C13AF;
+    background-color: #00A1CB;
 }
 
 label {
@@ -8,8 +8,8 @@ label {
 }
 
 .container > .well {
-    border-color: #5838B4;
-    background: #7559C3;
+    border-color: #113F8C;
+    background: #113F8C;
     font-weight: bold;
     color: white;
 }

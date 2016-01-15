@@ -65,6 +65,19 @@ body {
     text-align: center;
 }
 
+
+/*** description ***/
+
+#description {
+    min-height: 100%; /* cover complete page */
+}
+
+.idea-text {
+    font-weight: bold;
+    color: white;
+    font-size: 32px;
+}
+
 /*** circle button ***/
 
 .btn-circle {
