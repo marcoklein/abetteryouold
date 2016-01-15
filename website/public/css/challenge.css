@@ -57,6 +57,7 @@ animation: scaleIt 1s ease-in;*/
     z-index: 4;
     overflow: hidden;
     font-weight: bold;
+    white-space: nowrap;
 }
 
 /* challenge description */

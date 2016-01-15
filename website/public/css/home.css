@@ -28,8 +28,8 @@ Palette URL: http://paletton.com/#uid=34g1l0kw0w0jyC+oRxVy4oIDfjr
 html,
 body {
     background: #00A1CB;
-    background: url(../img/balloon.jpg) no-repeat center center fixed;
     /*background-color: #3C13AF;*/
+    background: url(../img/balloon.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
