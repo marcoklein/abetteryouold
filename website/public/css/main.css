@@ -1,4 +1,4 @@
-
+/* Colors: http://www.colourlovers.com/digital-art/trends/branding/7880/Papeterie_Haute-Ville_Logo */
 
 /* ==========================================================================
    Author's custom styles
@@ -16,10 +16,14 @@
     background-size: cover;
     -o-background-size: cover;
 }*/
+body {
+    padding-top: 64px;
+}
 
 html,
 body {
-    background: url(../img/beach2.jpg) no-repeat center center fixed;
+    /*background: url(../img/beach2.jpg) no-repeat center center fixed;*/
+    background: #3C13AF;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -49,6 +53,7 @@ body {
 .back-element {
     color: white;
 }
+
 
 
 .wrap-content {
@@ -84,12 +89,12 @@ body {
     text-transform: uppercase;
     font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
     font-weight: 700;
-    color: #fff;
+    color: #E54028;
 }
 
 .navbar-default .navbar-header .navbar-brand:hover,
 .navbar-default .navbar-header .navbar-brand:focus {
-    color: #ff0;
+    color: #D70060;
 }
 
 .navbar-default .navbar-toggle {
@@ -99,18 +104,19 @@ body {
 }
 
 .navbar-default a {
-    color: #fff;
+    color: #01A4A4;
 }
 
 .navbar-default .nav li a {
     -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;
     transition: background .3s ease-in-out;
+    color: white;
 }
 
 .navbar-default .nav li a:hover {
     outline: 0;
-    color: rgba(255,255,255,1);
+    color: #01A4A4;
     background-color: transparent;
 }
 
@@ -122,22 +128,23 @@ body {
 
 .navbar-default .nav li.active {
     outline: 0;
+    background-color: #01A4A4;
 }
 
 .navbar-default .nav li.active a {
-    background-color: rgba(255,255,255,.3);
+    background-color: #01A4A4;
 }
 
 .navbar-default .nav li.active a:hover {
-    color: #fff;
+    color: #01A4A4;
 }
 
 @media(min-width:768px) {
     .navbar-default {
-        padding: 0px 0;
-        border-bottom: 3px solid rgba(255, 255, 0, 1);
+        padding: 8px 0;
+        border-bottom: 2px solid rgba(0, 255, 0, 1);
         letter-spacing: 1px;
-        background: rgba(0, 0, 0, 1);
+        background: rgba(97, 97, 97, 1);
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;
@@ -145,8 +152,8 @@ body {
 
     .navbar-default.top-nav-collapse {
         padding: 0;
-        border-bottom: 3px solid rgba(255, 255, 0, 1);
-        background: rgba(0, 0, 0, 1);
+        border-bottom: 2px solid rgba(0, 255, 0, 1);
+        background: rgba(97, 97, 97, 1);
     }
 }
 

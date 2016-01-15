@@ -1,7 +1,15 @@
 html, body {
-    background-image: url(../img/sandstone.jpg);
+    /*background-image: url(../img/sandstone.jpg);*/
+    background-color: #3C13AF;
 }
 
 label {
     font-weight: bold;
+}
+
+.container > .well {
+    border-color: #5838B4;
+    background: #7559C3;
+    font-weight: bold;
+    color: white;
 }

@@ -1,13 +1,50 @@
+/*
+Palette URL: http://paletton.com/#uid=34g1l0kw0w0jyC+oRxVy4oIDfjr
+*** Primary color:
+
+   shade 0 = #3C13AF = rgb( 60, 19,175) = rgba( 60, 19,175,1) = rgb0(0.235,0.075,0.686)
+   shade 1 = #7559C3 = rgb(117, 89,195) = rgba(117, 89,195,1) = rgb0(0.459,0.349,0.765)
+   shade 2 = #5838B4 = rgb( 88, 56,180) = rgba( 88, 56,180,1) = rgb0(0.345,0.22,0.706)
+   shade 3 = #2E0E87 = rgb( 46, 14,135) = rgba( 46, 14,135,1) = rgb0(0.18,0.055,0.529)
+   shade 4 = #22096A = rgb( 34,  9,106) = rgba( 34,  9,106,1) = rgb0(0.133,0.035,0.416)
+
+*** Secondary color (1):
+
+   shade 0 = #25D500 = rgb( 37,213,  0) = rgba( 37,213,  0,1) = rgb0(0.145,0.835,0)
+   shade 1 = #6FDF57 = rgb(111,223, 87) = rgba(111,223, 87,1) = rgb0(0.435,0.875,0.341)
+   shade 2 = #4DD730 = rgb( 77,215, 48) = rgba( 77,215, 48,1) = rgb0(0.302,0.843,0.188)
+   shade 3 = #1DA400 = rgb( 29,164,  0) = rgba( 29,164,  0,1) = rgb0(0.114,0.643,0)
+   shade 4 = #168100 = rgb( 22,129,  0) = rgba( 22,129,  0,1) = rgb0(0.086,0.506,0)
+
+*** Secondary color (2):
+
+   shade 0 = #FF2800 = rgb(255, 40,  0) = rgba(255, 40,  0,1) = rgb0(1,0.157,0)
+   shade 1 = #FF7B63 = rgb(255,123, 99) = rgba(255,123, 99,1) = rgb0(1,0.482,0.388)
+   shade 2 = #FF5839 = rgb(255, 88, 57) = rgba(255, 88, 57,1) = rgb0(1,0.345,0.224)
+   shade 3 = #C51F00 = rgb(197, 31,  0) = rgba(197, 31,  0,1) = rgb0(0.773,0.122,0)
+   shade 4 = #9B1800 = rgb(155, 24,  0) = rgba(155, 24,  0,1) = rgb0(0.608,0.094,0)
+*/
+
 html,
 body {
-    background-image: url(../img/endless.jpg);
+    background: #00A1CB;
+    /*background: url(../img/balloon.jpg) no-repeat center center fixed;*/
+    /*background-color: #3C13AF;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 
 }
 
 .feature-heading {
-    font-size: 64px;
+    font-size: 80px;
     font-weight: bold;
-    color: black;
+    color: #32742C;
+}
+
+.feature-sub-heading {
+    color: #D0D102;
 }
 
 .fullscreen {

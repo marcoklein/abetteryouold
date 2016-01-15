@@ -6,33 +6,37 @@
 
 <div class="container">
     <h1 class="feature-element page-heading">Share Your Challenge</h1>
+    <div class="well">
+        Do you have an idea for a new challenge? Share your idea. Fill out the form below and press submit.
+        I will have a look at it and will share it with the whole community. Thanks for sharing (:
+    </div>
     <div id="submit-form" class="row">
         <div class="col-md-6">
 
             <div class="form-group">
-                <label class="feature-element">Title (4 - 40 characters)</label>
+                <label class="back-element">Title (4 - 40 characters)</label>
                 <input id="challenge-title" type="text" class="form-control" placeholder="Title of the challenge." required="true" maxlength="40" />
-                <small class="feature-element"><span id="challenge-title-characters">0</span> characters</small>
+                <small class="back-element"><span id="challenge-title-characters">0</span> characters</small>
                 <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert" hidden="true">Title too short.</div>
                 <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert" hidden="true">Title too long.</div>
             </div>
 
             <div class="form-group">
-                <label class="feature-element">Name (visible to others)</label>
+                <label class="back-element">Name (visible to others)</label>
                 <input id="challenge-author-name" type="text" class="form-control" placeholder="Shown as the author of the challenge." required="true" maxlength="50" />
                 <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert" hidden="true">Title too short.</div>
                 <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert" hidden="true">Title too long.</div>
             </div>
 
             <div class="form-group">
-                <label class="feature-element">Mail (not visible to others)</label>
+                <label class="back-element">Mail (not visible to others)</label>
                 <input id="challenge-author-mail" type="text" class="form-control" placeholder="What's your mail address?" required="true" maxlength="50" />
                 <div id="title-too-short" class="alert-hidden alert alert-danger" role="alert" hidden="true">Title too short.</div>
                 <div id="title-too-long" class="alert-hidden alert alert-danger" role="alert" hidden="true">Title too long.</div>
             </div>
 
             <div class="form-group">
-                <label class="feature-element">Keywords (separated by comma)</label>
+                <label class="back-element">Keywords (separated by comma)</label>
                 <input id="challenge-tags" type="text" class="form-control tags" name="tags" data-role="tagsinput" placeholder="What keywords describe your challenge?" maxlength="440" />
                 <div id="tags-too-long" class="alert-hidden alert alert-danger" role="alert" hidden="true">Too many keywords. (At least 20)</div>
                 <div id="tag-too-long" class="alert-hidden alert alert-danger" role="alert" hidden="true">At least one keyword is too long (maximal 20 characters per keyword)</div>
@@ -40,9 +44,9 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label class="feature-element">Description (50 - 1200 characters)</label>
+                <label class="back-element">Description (50 - 1200 characters)</label>
                 <textarea id="challenge-description" class="form-control" placeholder="What is the idea of your challenge?" required="true" maxlength="1200" rows="12" id="description" aria-describedby="description-addon"></textarea>
-                <small class="feature-element"><span id="challenge-description-characters">0</span> characters</small>
+                <small class="back-element"><span id="challenge-description-characters">0</span> characters</small>
                 <div id="description-too-short" class="alert-hidden alert alert-danger" role="alert" hidden="true">Description too short.</div>
                 <div id="description-too-long" class="alert-hidden alert alert-danger" role="alert" hidden="true">Description too long.</div>
             </div>

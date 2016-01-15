@@ -5,7 +5,7 @@
     padding-left: 24px;
     border-radius: 30px;
     height: 128px;
-    background-color: rgba(200, 200, 200, 0.7);
+    background-color: rgba(97, 174, 36, 1);
     display: block;
     cursor: pointer;
     z-index: 4;
@@ -14,7 +14,7 @@
 
 .challenge-box:hover {
     z-index: 2;
-    background-color: #DDD;
+    background-color: rgba(208, 209, 2, 1);
    -webkit-transform: scale(1.02);
    -moz-transform: scale(1.02);
    -ms-transform: scale(1.02);

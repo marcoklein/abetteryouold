@@ -13,8 +13,8 @@
 */
 
 /*** Constants ***/
-//var SERVER_URL = "http://localhost:8080";
-var SERVER_URL = "http://87.106.14.30:8080";
+var SERVER_URL = "http://localhost:8080";
+//var SERVER_URL = "http://87.106.14.30:8080";
 
 const HTML_PAGE_DIRECTORY = "./html/";
 const DEFAULT_PAGE = "home";
