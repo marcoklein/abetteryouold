@@ -29,6 +29,10 @@ app.get("/", function(request, response) {
     response.sendFile(__dirname + "/public/index.html");
 });
 
+
+/*** Handle client requests ***/
+
+/* Client wants to submit the transmitted challenge. */
 app.post("/submit", function(request, response) {
     console.log("Somebody made a post request: ");
     console.log("Body: " + JSON.stringify(request.body));
@@ -57,7 +61,7 @@ app.post("/list", function(request, response) {
     response.writeHead(200, {"Content-Type": "text/json"});
     
     if (list == "all") {
-        ChallengeModel.find(function(err, challenges) {
+        ChallengesModel.find(function(err, challenges) {
             if (err) return console.error(err);
             response.end(JSON.stringify({status: "success", challenges: challenges}));
         });
@@ -78,7 +82,7 @@ app.post("/load", function(request, response) {
     response.writeHead(200, {"Content-Type": "text/json"});
     
     // TODO find challenge by id
-    ChallengeModel.find(function(err, challenges) {
+    ChallengesModel.find(function(err, challenges) {
         if (err) return console.error(err);
         for (var i = 0; i < challenges.length; i++) {
             if (challenges[i]._id == id) {
@@ -93,19 +97,23 @@ app.post("/load", function(request, response) {
 
 /*** MongoDB ***/
 
+/* Status of a challenge may be
+0 = not approved (submitted)
+1 = approved */
 
 /* DB Schemes and Models */
 
-var challengeSchema = mongoose.Schema({
+var challengesSchema = mongoose.Schema({
     title: String,
     description: String,
     duration: Number,
     tags: String,
     image: String,
-    time: Date,
+    timestamp: Date,
+    status: Number,
 });
 
-var ChallengeModel = mongoose.model("challenge", challengeSchema);
+var ChallengesModel = mongoose.model("challenges", challengesSchema);
 
 /* DB Connection */
 
@@ -120,14 +128,14 @@ db.once("open", function(callback) {
 
 
 function initDb() {
-    ChallengeModel.find(function(err, challenges) {
+    ChallengesModel.find(function(err, challenges) {
         if (err) return console.error(err);
         console.log(challenges);
     });
 }
 
 function dbAddChallenge(challenge, callback) {
-    var testChallenge = new ChallengeModel(challenge);
+    var testChallenge = new ChallengesModel(challenge);
     testChallenge.save(function(err, obj) {
         if (err) return console.error(err);
         console.log(obj.title + " was saved successfully with id " + obj._id);
