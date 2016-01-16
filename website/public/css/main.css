@@ -76,7 +76,12 @@ body {
     margin-top: 20px;
 }
 
-/* Custom Navbar */
+/*** Custom Buttons ***/
+.btn.sharp {
+    border-radius: 0;
+}
+
+/*** Custom Navbar ***/
 
 .navbar-default {
     border-bottom: 3px solid rgba(255, 255, 0, 1);

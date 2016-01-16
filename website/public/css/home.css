@@ -52,13 +52,13 @@ body {
     height: 100%;
 }
 
-.content {
+.fullscreen .content {
     height: 100%;
     width: 100%;
     display: table;
 }
 
-.content-centered {
+.content .content-centered {
     display: table-cell;
     position: relative;
     vertical-align: middle;
@@ -70,6 +70,10 @@ body {
 
 #description {
     min-height: 100%; /* cover complete page */
+}
+
+#description {
+    text-align: center;
 }
 
 .idea-text {
