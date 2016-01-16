@@ -5,6 +5,7 @@ function initSubmitPage() {
 
 /* Submit button pressed */
 function submit() {
+    BootstrapDialog.show({message: "Hi Apple!"});
     console.log("Submitting challenge...");
     hideAlerts();
     var valid = true;
@@ -56,6 +57,9 @@ function submit() {
     challenge.duration = null;
     challenge.image = "alto.png";
     sendNewChallenge(challenge);
+    
+    alert("Thank You, your challenge has been submitted. It will be reviewed and added if everything is okay.");
+    
 }
 
 /* Removes leading and trailing whitespaces. */
