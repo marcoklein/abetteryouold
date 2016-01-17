@@ -96,6 +96,32 @@ app.post("/load", function(request, response) {
     
 });
 
+/*** Admin requests ***/
+var adminName = "spartaner";
+var adminPassword = "testpw123";
+
+app.post("/admin-list-all", function(request, response) {
+    response.writeHead(200, {"Content-Type": "text/json"});
+    if (!testAdminCredentials(request.body)) {
+        response.end(JSON.stringify({status: "error", msg: "Access denied."}));
+        return; // access denied
+    }
+    // send challenges
+    ChallengesModel.find(function(err, challenges) {
+        if (err) return console.error(err);
+        response.end(JSON.stringify({status: "success", challenges: challenges}));
+    });
+});
+
+/* Tests if the credentials of the given data of the request are valid. */
+function testAdminCredentials(data) {
+    if (adminName === data.user && adminPassword === data.pw) {
+        return true;
+    }
+    console.error("Wrong admin credentials: user=" + data.user + ", pw=" + data.pw);
+    return false;
+}
+
 /*** MongoDB ***/
 
 /* Status of a challenge may be
