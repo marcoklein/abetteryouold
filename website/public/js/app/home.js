@@ -1,13 +1,13 @@
 
 function initTopChallenges() {
     Storage.requestListChallenges("top", function(challenges) {
-        fillWithChallengesRows($("#top-challenges"), 2, challenges);
+        fillWithChallengesRows($("#top-challenges-content"), 2, challenges);
     });
 }
 
 function initNewChallenges() {
     Storage.requestListChallenges("new", function(challenges) {
-        fillWithChallengesRows($("#new-challenges"), 2, challenges);
+        fillWithChallengesRows($("#new-challenges-content"), 2, challenges);
     });
 }
 
