@@ -38,6 +38,7 @@ app.post("/submit", function(request, response) {
     console.log("Body: " + JSON.stringify(request.body));
     console.log("Title: " + request.body.title);
     var challenge = request.body;
+    challenge.status = STATUS_SUBMITTED;
     
     // TODO check if challenge contains valid values
     
@@ -100,6 +101,8 @@ app.post("/load", function(request, response) {
 /* Status of a challenge may be
 0 = not approved (submitted)
 1 = approved */
+var STATUS_SUBMITTED = 0;
+var STATUS_APPROVED = 1;
 
 /* DB Schemes and Models */
 
@@ -136,6 +139,7 @@ function initDb() {
 
 function dbAddChallenge(challenge, callback) {
     var testChallenge = new ChallengesModel(challenge);
+    testChallenge.timestamp = new Date(); // set timestamp to now
     testChallenge.save(function(err, obj) {
         if (err) return console.error(err);
         console.log(obj.title + " was saved successfully with id " + obj._id);
