@@ -57,14 +57,6 @@ function addChallenge(challenge) {
     var col = $("<div>");
     col.attr("rel", "content");
     col.addClass("col-md-12");
-    var content = $("<div>");
-    content.addClass("challenge-box");
-    var icon = $("<span>");
-    // set background image
-    icon.addClass("challenge-box-image");
-    if (challenge.image && challenge.image != "") {
-        icon.css("background-image", "url('../img/icon/" + challenge.image + "')");
-    }
     
     // define onclick action
     col.attr("href", "detail#" + challenge._id);
@@ -74,19 +66,8 @@ function addChallenge(challenge) {
     col.click(linkContentAction);
     //col.on("click", linkContentAction());
     
-    // add elements
-    var title = $("<h1>");
-    title.text(challenge.title);
     
-    var description = $("<p>");
-    description.text(challenge.description);
-    
-    // add
-    content.append(title);
-    content.append(description);
-    content.append(icon);
-    
-    col.append(content);
+    col.append(createChallengeBox(challenge));
     row.append(col);
     
     browseContainer.append(row);

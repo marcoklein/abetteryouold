@@ -5,7 +5,7 @@ function initSubmitPage() {
 
 /* Submit button pressed */
 function submit() {
-    BootstrapDialog.show({message: "Hi Apple!"});
+    //BootstrapDialog.show({message: "Hi Apple!"});
     console.log("Submitting challenge...");
     hideAlerts();
     var valid = true;

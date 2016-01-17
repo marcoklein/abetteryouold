@@ -66,6 +66,18 @@ app.post("/list", function(request, response) {
             if (err) return console.error(err);
             response.end(JSON.stringify({status: "success", challenges: challenges}));
         });
+    } else if (list == "new") {
+        // TODO send all new challenges
+        ChallengesModel.find({}).limit(6).exec(function(err, challenges) {
+            if (err) return console.error(err);
+            response.end(JSON.stringify({status: "success", challenges: challenges}));
+        });
+    } else if (list == "top") {
+        // TODO send all top challenges
+        ChallengesModel.find({}).limit(6).exec(function(err, challenges) {
+            if (err) return console.error(err);
+            response.end(JSON.stringify({status: "success", challenges: challenges}));
+        });
     } else {
         response.end(JSON.stringify({status: "error", msg: "no list option provided"}));
     }
@@ -97,8 +109,8 @@ app.post("/load", function(request, response) {
 });
 
 /*** Admin requests ***/
-var adminName = "spartaner";
-var adminPassword = "testpw123";
+var adminName = config.adminUser;
+var adminPassword = config.adminPassword;
 
 app.post("/admin-list-all", function(request, response) {
     response.writeHead(200, {"Content-Type": "text/json"});
@@ -140,6 +152,7 @@ var challengesSchema = mongoose.Schema({
     image: String,
     timestamp: Date,
     status: Number,
+    views: Number,
 });
 
 var ChallengesModel = mongoose.model("challenges", challengesSchema);

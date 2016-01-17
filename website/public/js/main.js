@@ -76,8 +76,29 @@ var Storage = {
             callback(challenges);
         });
     },
+    requestListChallenges: function (listOption, callback) {
+        console.log("Requesting list challenges.");
+
+        var data = {
+            list: listOption
+        };
+
+        $.ajax({
+            url: SERVER_URL + "/list",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (response) {
+                console.log("Ajax was successfull " + JSON.stringify(response));
+                callback(response.challenges);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error " + textStatus + " " + errorThrown);
+            }
+        });
+    },
     /** Adds given challenge to the challenges array. */
-    storeLoadedChallenge: function(challengeToAdd) {
+    storeLoadedChallenge: function (challengeToAdd) {
         // TODO sort challenges array ?
         this.challenges[this.challenges.length] = challengeToAdd;
         this.challengesById[challengeToAdd._id] = challengeToAdd;
@@ -142,23 +163,7 @@ function ajaxRequest(url, data, successCallback) {
 
 /* Requests all challenges from the server. The callback will get all challenges as an array. */
 function requestChallenges(callback) {
-    console.log("Requesting challenges.");
-    
-    var data = {list: "all"};
-    
-    $.ajax({
-        url: SERVER_URL + "/list",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(data),
-        success: function (response) {
-            console.log("Ajax was successfull " + JSON.stringify(response));
-            callback(response.challenges);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log("Error " + textStatus + " " + errorThrown);
-        }
-    });
+    Storage.requestListChallenges("all", callback);
 }
 
 
