@@ -2,6 +2,9 @@
 function createChallengeBox(challenge) {
     var content = $("<div>");
     content.addClass("challenge-box");
+    content.attr("title", challenge.title);
+    content.attr("href", "#");
+    content.tooltip();
     var icon = $("<span>");
     // set background image
     icon.addClass("challenge-box-image");

@@ -147,6 +147,8 @@ var STATUS_APPROVED = 1;
 var challengesSchema = mongoose.Schema({
     title: String,
     description: String,
+    authorName: String,
+    authorMail: String,
     duration: Number,
     tags: String,
     image: String,
@@ -176,9 +178,11 @@ function initDb() {
     });
 }
 
+/* Adds a new challenge to the database. */
 function dbAddChallenge(challenge, callback) {
     var testChallenge = new ChallengesModel(challenge);
     testChallenge.timestamp = new Date(); // set timestamp to now
+    testChallenge.views = 0;
     testChallenge.save(function(err, obj) {
         if (err) return console.error(err);
         console.log(obj.title + " was saved successfully with id " + obj._id);

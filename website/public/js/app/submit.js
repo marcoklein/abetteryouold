@@ -10,6 +10,7 @@ function submit() {
     hideAlerts();
     var valid = true;
     // check if all fields are filled correctly
+    // title
     var title = $("#challenge-title").val();
     if (title.length < MIN_TITLE_LENGTH) {
         $("#title-too-short").fadeIn();
@@ -18,6 +19,7 @@ function submit() {
         $("#title-too-long").fadeIn();
         valid = false;
     }
+    // description
     var description = $("#challenge-description").val();
     if (description.length < MIN_DESCRIPTION_LENGTH) {
         $("#description-too-short").fadeIn();
@@ -26,6 +28,7 @@ function submit() {
         $("#description-too-long").fadeIn();
         valid = false;
     }
+    // tags
     var tags = "" + $("#challenge-tags").val();
     tags = tags.split(","); // extract keywords
     if (tags.length > MAX_TAGS) {
@@ -34,7 +37,7 @@ function submit() {
     }
     console.log("Number of keywords: " + tags.length);
     console.log(tags);
-    // set up keywords
+    // set up tags
     for (var i = 0; i < tags.length; i++) {
         tags[i] = trimTag(tags[i]);
         if (tags[i].length > MAX_TAG_LENGTH) {
@@ -43,6 +46,16 @@ function submit() {
             break;
         }
     }
+    
+    // name
+    var name = $("#challenge-author-name").val();
+    // TODO validate name
+    
+    // mail
+    var mail = $("#challenge-author-mail").val();
+    // TODO check if it is a mail
+    
+    
     
     
     if (!valid) {
@@ -53,12 +66,14 @@ function submit() {
     var challenge = {};
     challenge.title = title;
     challenge.description = description;
+    challenge.authorName = name;
+    challenge.authorMail = mail;
     challenge.tags = tags;
     challenge.duration = null;
     challenge.image = "alto.png";
     sendNewChallenge(challenge);
     
-    alert("Thank You, your challenge has been submitted. It will be reviewed and added if everything is okay.");
+    alert("Your challenge has been submitted, thank you.");
     
 }
 

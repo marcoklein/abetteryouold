@@ -32,12 +32,17 @@ function createTableEntry(challenge) {
     row.click(function() {challengeClicked(challenge._id)});
     //row.on("click", "challengeClicked(" + challenge._id + ");");
     // append data
+    row.append($("<td>").text(challenge._id));
     row.append($("<td>").text(challenge.title));
     row.append($("<td>").text(challenge.description));
-    row.append($("<td>").text(challenge._id));
+    row.append($("<td>").text(challenge.authorName));
+    row.append($("<td>").text(challenge.authorMail));
     row.append($("<td>").text(challenge.tags));
     row.append($("<td>").text(challenge.duration));
     row.append($("<td>").text(challenge.image));
+    row.append($("<td>").text(challenge.views));
+    row.append($("<td>").text(challenge.status));
+    row.append($("<td>").text(challenge.timestamp));
     
     // add edit button
     
