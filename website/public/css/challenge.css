@@ -24,33 +24,6 @@
    -o-transform: scale(1.02);
    transform: scale(1.02);
 }
-/*
--webkit-animation: scaleIt 1s ease-in;
--moz-animation: scaleIt 1s ease-in-out;
--o-animation: scaleIt 1s ease-in-out;
-animation: scaleIt 1s ease-in;*/
-/*
-@-webkit-keyframes scaleIt {
-  0%   { transform: scale(1.00); }
-  50%  { transform: scale(1.03); }
-  100% { transform: scale(1.02); }
-}
-@-moz-keyframes scaleIt {
-  0%   { transform: scale(1.00); }
-  50%  { transform: scale(1.03); }
-  100% { transform: scale(1.02); }
-}
-@-o-keyframes scaleIt {
-  0%   { transform: scale(1.00); }
-  50%  { transform: scale(1.03); }
-  100% { transform: scale(1.02); }
-}
-@keyframes scaleIt {
-  0%   { transform: scale(1.00); }
-  50%  { transform: scale(1.03); }
-  100% { transform: scale(1.02); }
-}*/
-
 
 /* challenge title */
 .challenge-box > h1 {
@@ -125,3 +98,30 @@ They should only be used by the detail page.
     z-index: 7;
 }
 
+
+/*
+-webkit-animation: scaleIt 1s ease-in;
+-moz-animation: scaleIt 1s ease-in-out;
+-o-animation: scaleIt 1s ease-in-out;
+animation: scaleIt 1s ease-in;*/
+/*
+@-webkit-keyframes scaleIt {
+  0%   { transform: scale(1.00); }
+  50%  { transform: scale(1.03); }
+  100% { transform: scale(1.02); }
+}
+@-moz-keyframes scaleIt {
+  0%   { transform: scale(1.00); }
+  50%  { transform: scale(1.03); }
+  100% { transform: scale(1.02); }
+}
+@-o-keyframes scaleIt {
+  0%   { transform: scale(1.00); }
+  50%  { transform: scale(1.03); }
+  100% { transform: scale(1.02); }
+}
+@keyframes scaleIt {
+  0%   { transform: scale(1.00); }
+  50%  { transform: scale(1.03); }
+  100% { transform: scale(1.02); }
+}*/

@@ -28,17 +28,21 @@ Palette URL: http://paletton.com/#uid=34g1l0kw0w0jyC+oRxVy4oIDfjr
 html,
 body {
     background: #00A1CB;
-    /*background-color: #3C13AF;*/
-    background: url(../img/balloon.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+}
 
+@media(min-width:768px) {
+    html,
+    body {
+        background: url(../img/blue-background.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
 }
 
 .feature-heading {
-    font-size: 80px;
+    font-size: 64px;
     font-weight: bold;
     color: #32742C;
 }
@@ -79,7 +83,13 @@ body {
 .idea-text {
     font-weight: bold;
     color: white;
-    font-size: 32px;
+    font-size: 20px;
+}
+
+@media(min-width:768px) {
+    .idea-text {
+        font-size: 24px;
+    }
 }
 
 /*** circle button ***/
