@@ -3,8 +3,8 @@ var SERVER_URL = "http://localhost:8080";
 //var SERVER_URL = "http://87.106.14.30:8080";
 
 
-var password = "testpw123";
-var userName = "spartaner";
+var password = localStorage.getItem("sparta");
+var userName = localStorage.getItem("user");
 
 
 /*** Main control ***/

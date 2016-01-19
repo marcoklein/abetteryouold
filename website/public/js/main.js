@@ -260,6 +260,8 @@ function applyLinkAction(rootElement) {
 
 function linkContentAction() {
     console.log("Calling link action for " + this);
+    // clear hash information (a new hash me be included in the link)
+    window.location.hash = "";
     var pageUrl = $(this).attr("href");
     console.log("Clicked on " + pageUrl);
 
