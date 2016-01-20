@@ -13,8 +13,11 @@
 */
 
 /*** Constants ***/
-var SERVER_URL = "http://localhost:8080";
-//var SERVER_URL = "http://87.106.14.30:8080";
+//var SERVER_URL = "http://localhost:8080";
+//var SERVER_URL = "http://87.106.14.30:8080";var SERVER_URL = "";
+$.getJSON("../global-config.json", function(json) {
+    SERVER_URL = json.serverUrl;
+});
 
 var HTML_PAGE_DIRECTORY = "./html/";
 var DEFAULT_PAGE = "home";

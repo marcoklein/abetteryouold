@@ -50,62 +50,91 @@ app.post("/submit", function(request, response) {
     });
     
 });
-
-app.post("/list", function(request, response) {
+app.post("/list", function (request, response) {
     console.log("List request.");
     // check message
     var list = request.body.list;
     var challenges = null;
-    
-    
+
+
     // send the requested challenges
-    response.writeHead(200, {"Content-Type": "text/json"});
-    
+    response.writeHead(200, {
+        "Content-Type": "text/json"
+    });
+
     if (list == "all") {
-        ChallengesModel.find(function(err, challenges) {
-            if (err) return console.error(err);
-            response.end(JSON.stringify({status: "success", challenges: challenges}));
-        });
+        ChallengesModel.find({})
+            .select(clientChallengeSelectFields)
+            .exec(function (err, challenges) {
+                if (err) return console.error(err);
+                response.end(JSON.stringify({
+                    status: "success",
+                    challenges: challenges
+                }));
+            });
     } else if (list == "new") {
         // TODO send all new challenges
-        ChallengesModel.find({}).limit(6).exec(function(err, challenges) {
-            if (err) return console.error(err);
-            response.end(JSON.stringify({status: "success", challenges: challenges}));
-        });
+        ChallengesModel.find({})
+            .select(clientChallengeSelectFields)
+            .limit(6)
+            .exec(function (err, challenges) {
+                if (err) return console.error(err);
+                response.end(JSON.stringify({
+                    status: "success",
+                    challenges: challenges
+                }));
+            });
     } else if (list == "top") {
         // TODO send all top challenges
-        ChallengesModel.find({}).limit(6).exec(function(err, challenges) {
-            if (err) return console.error(err);
-            response.end(JSON.stringify({status: "success", challenges: challenges}));
-        });
+        ChallengesModel.find({})
+            .select(clientChallengeSelectFields)
+            .limit(6)
+            .exec(function (err, challenges) {
+                if (err) return console.error(err);
+                response.end(JSON.stringify({
+                    status: "success",
+                    challenges: challenges
+                }));
+            });
     } else {
-        response.end(JSON.stringify({status: "error", msg: "no list option provided"}));
+        response.end(JSON.stringify({
+            status: "error",
+            msg: "no list option provided"
+        }));
     }
 });
 
 /* Load a single challenge. */
-app.post("/load", function(request, response) {
+app.post("/load", function (request, response) {
     // check message
     var id = request.body.challengeId;
-    
+
     console.log("Load request for id " + id);
-    
-    
+
+
     // send the requested challenges
-    response.writeHead(200, {"Content-Type": "text/json"});
-    
-    // TODO find challenge by id
-    ChallengesModel.find(function(err, challenges) {
-        if (err) return console.error(err);
-        for (var i = 0; i < challenges.length; i++) {
-            if (challenges[i]._id == id) {
-                response.end(JSON.stringify({status: "success", challenge: challenges[i]}));
-                return;
-            }
-        }
-        response.end(JSON.stringify({status: "error", msg: "not a valid id"}));
+    response.writeHead(200, {
+        "Content-Type": "text/json"
     });
-    
+
+    ChallengesModel.findOne({
+            _id: id
+        })
+        .select(clientChallengeSelectFields)
+        .exec(function (err, challenge) {
+            if (err) {
+                response.end(JSON.stringify({
+                    status: "error",
+                    msg: "not a valid id"
+                }));
+                return console.error(err);
+            }
+            response.end(JSON.stringify({
+                status: "success",
+                challenge: challenge
+            }));
+        });
+
 });
 
 /*** Admin requests ***/
@@ -156,6 +185,17 @@ var challengesSchema = mongoose.Schema({
     status: Number,
     views: Number,
 });
+
+var clientChallengeSelectFields = {
+    title: 1,
+    description: 1,
+    authorName: 1,
+    duration: 1,
+    tags: 1,
+    image: 1,
+    timestamp: 1,
+    views: 1
+}
 
 var ChallengesModel = mongoose.model("challenges", challengesSchema);
 
