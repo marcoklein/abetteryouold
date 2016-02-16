@@ -1,4 +1,6 @@
 {
     "port": 8080,
-    "dbUrl": "mongodb://localhost:27017/test"
+    "dbUrl": "mongodb://localhost:27017/test",
+    "adminUser": "jürgen",
+    "adminPassword": "testpw123"
 }

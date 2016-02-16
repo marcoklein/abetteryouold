@@ -13,33 +13,22 @@
 */
 
 /*** Constants ***/
-var SERVER_URL = "http://localhost:8080";
+//var SERVER_URL = "http://localhost:8080";
+//var SERVER_URL = "http://87.106.14.30:8080";var SERVER_URL = "";
+$.getJSON("../global-config.json", function(json) {
+    SERVER_URL = json.serverUrl;
+});
 
-var FADE_TIME = 400;
-var PAGES = ["home-page", "browse-page", "submit-page", "about-page", "detail-challenge-module"];
-var DEFAULT_PAGE = PAGES[0];
-var INIT_PAGE = function (page) {
-    switch (page) {
-    case "home-page":
-        initHomePage();
-        break;
-    case "browse-page":
-        initBrowsePage();
-        break;
-    case "submit-page":
-        initSubmitPage();
-        break;
-    case "about-page":
-        initAboutPage();
-        break;
-    default:
-    }
-};
+var HTML_PAGE_DIRECTORY = "./html/";
+var DEFAULT_PAGE = "home";
+
 
 var MIN_TITLE_LENGTH = 4;
-var MAX_TITLE_LENGTH = 50;
-var MIN_DESCRIPTION_LENGTH = 50;
+var MAX_TITLE_LENGTH = 40;
+var MIN_DESCRIPTION_LENGTH = 20;
 var MAX_DESCRIPTION_LENGTH = 1200;
+var MAX_TAGS = 20;
+var MAX_TAG_LENGTH = 20;
 
 
 /*** Global Variables ***/
@@ -51,336 +40,74 @@ var currentPage = null;
 var storedChallenges = {};
 
 
-
-/*** Home Page ***/
-
-function initHomePage() {
-    updateMenu("#home-page-nav");
-}
-
-
-/*** Browse Page ***/
-
-var browseContainer;
-var challengeCount = 0;
-
-
-function initBrowsePage() {
-    updateMenu("#browse-page-nav");
-    browseContainer = $("#browse-container");
-    
-    $("#detailed-challenge").hide();
-    
-    browseContainer.append("<div>Loading...</div>");
-    
-    requestChallenges(challengesRecieved);
-}
-
-
-/* Called as the client recieves the challenges.*/
-function challengesRecieved(challenges) {
-    console.log("Challenges recieved.");
-    // clean all challenge items
-    var browseContainerNode = document.getElementById("browse-container");
-    while (browseContainerNode.firstChild) {
-        browseContainerNode.removeChild(browseContainerNode.firstChild);
-    }
-    
-    for (var i = 0; i < challenges.length; i++) {
-        // store challenges for fast lookup
-        storedChallenges[challenges[i]._id] = challenges[i];
-    }
-    
-    applyChallenges(challenges);
-}
-
-/* Applies the given challenges to the browse screen.
-They have the form
-    - challenges [array]
-        - id
-        - title
-        - description
-        - duration [optional] (in days)
-        - tags [array,optional]
-            - tagname
-        - image [optional]
-*/
-function applyChallenges(challenges) {
-    // add challenges
-    for (var i = 0; i < challenges.length; i++) {
-        addChallenge(challenges[i]);
-    }
-}
-
-/* Adds given challenge to the browse page. See applyChallenges for the format. */
-function addChallenge(challenge) {
-    var col = $("<div>");
-    var content = $("<div>");
-    col.append(content);
-    col.addClass("panel panel-default");
-    content.addClass("panel-body");
-    // content
-    content.append($("<h4>").text(challenge.title));
-    //content.append($("<p>").text(challenge.description));
-    // css
-    col.css("margin", "4px");
-    col.css("border", "2px solid blue");
-    col.css("background-color", "#EEE");
-    content.css("text-align", "center");
-    content.css("padding", "4px");
-    content.css("width", "192px");
-    content.css("height", "128px");
-    content.css("cursor", "pointer");
-    
-    content.attr("onclick", "hash(\"#id" + challenge._id + "\")");
-    content.attr("data-toggle", "tooltip");
-    content.attr("title", challenge.description);
-    content.attr("data-placement", "bottom");
-    content.tooltip();
-    
-    // add
-    browseContainer.append(col);
-    challengeCount++;
-}
-
-/* Called if you press enter while in the search text field. */
-$("#search-box").keypress(function(e) {
-    if (e.which == 13) {
-        search($("#search-box").val());
-    }
-});
-
-/* Called as the search button is pressed. */
-function search(text) {
-    console.log("Searching for \"" + text + "\"");
-}
-
-
-/*** Browse Detailed Challenge ***/
-
-/* Shows the given challenge detailed. */
-function initDetailedChallenge(challengeId) {
-    changePageHash("detail-challenge-module", true, false);
-    updateMenu("#browse-page-nav");
-    // show detailed view
-    showDetailedChallenge(challengeId);
-    
-}
-
-function showDetailedChallenge(challengeId) {
-    var challenge = storedChallenges[challengeId];
-    if (!challenge) {
-        console.log("Challenge not stored - loading challenge with id " + challengeId);
-        // load challenge
-        loadChallenge(challengeId, function(challenge) {
-            showDetailedChallenge(challenge._id);
-        });
-        return; // wait for callback of load challenge
-    }
-    
-    console.log("Showing challenge \"" + challenge.title + "\"");
-    $("#detail-challenge-title").text(challenge.title);
-    $("#detail-challenge-description").text(challenge.description);
-}
-
-
-/*** Submit Page ***/
-
-function initSubmitPage() {
-    updateMenu("#submit-page-nav");
-    hideAlerts();
-}
-
-/* Submit button pressed */
-function submit() {
-    console.log("Submitting challenge...");
-    hideAlerts();
-    var valid = true;
-    // check if all fields are filled correctly
-    var title = $("#challenge-title").val();
-    if (title.length < MIN_TITLE_LENGTH) {
-        $("#title-too-short").fadeIn();
-        valid = false;
-    } else if (title.length > MAX_TITLE_LENGTH) {
-        $("#title-too-long").fadeIn();
-        valid = false;
-    }
-    var description = $("#challenge-description").val();
-    if (description.length < MIN_DESCRIPTION_LENGTH) {
-        $("#description-too-short").fadeIn();
-        valid = false;
-    } else if (description.length > MAX_DESCRIPTION_LENGTH) {
-        $("#description-too-long").fadeIn();
-        valid = false;
-    }
-    
-    if (!valid) {
-        return;
-    }
-    
-    // send new challenge to server
-    var challenge = {};
-    challenge.title = title;
-    challenge.description = description;
-    // TODO set challenge tags image and duration
-    challenge.duration = null;
-    challenge.tags = null;
-    challenge.image = null;
-    sendNewChallenge(challenge);
-}
-
-/* update written characters for challenge title */
-$("#challenge-title").on("input", function() {
-    var length = $("#challenge-title").val().length;
-    $("#challenge-title-characters").text(length);
-    if (length > MIN_TITLE_LENGTH) {
-        $("#title-too-short").fadeOut();
-    }
-});
-
-/* update written characters for challenge description */
-$("#challenge-description").on("input", function() {
-    var length = $("#challenge-description").val().length;
-    $("#challenge-description-characters").text(length);
-    if (length > MIN_DESCRIPTION_LENGTH) {
-        $("#description-too-short").fadeOut();
-    }
-});
-
-$("#challenge-title").keypress(function(e) {
-    if (e.which == 13) {
-        $("#challenge-submit-button").click();
-    }
-});
-
-$("#challenge-tags").keypress(function(e) {
-    if (e.which == 13) {
-        $("#challenge-submit-button").click();
-    }
-});
-
-
-/*** About Page ***/
-
-function initAboutPage() {
-    updateMenu("#about-page-nav");
-}
-
-
-
 /*** Main Control ***/
-
-
-/* Handles hash changes of the url. You can get the hash by location.hash */
-function locationHashChanged() {
-    var hash = location.hash.substr(1); // cut away the hashtag
-    console.log("Hash has changed to " + hash);
-    // analyse new hash - is it a page?
-    if (endsWith(hash, "page")) {
-        if (!hasPage(hash)) {
-            console.log("Not a valid page hash: " + hash);
-            changePageFade(DEFAULT_PAGE);
-            return;
-        }
-        // a valid page
-        changePageFade(hash);
-    } else if (/id([0-9])*/.test(hash)) {
-        // challenge id
-        console.log("Challenge id: " + hash);
-        hash = hash.substr(2);
-        initDetailedChallenge(hash);
-    } else {
-        // unknown hash - change page to default page
-        console.log("Unknown hash: " + hash);
-        changePageFade(DEFAULT_PAGE);
-    }
-}
-
-/* Checks if the given page is a valid page. */
-function hasPage(page) {
-    for (var i = 0; i < PAGES.length; i++) {
-        if (PAGES[i] == page) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/* Hides all available pages. If you create a new one you have to add it here. */
-function hideAllPages() {
-    for (var i = 0; i < PAGES.length; i++) {
-        $(toClass(PAGES[i])).hide();
-    }
-}
-
-function changePageFade(newPage) {
-    changePage(newPage, true);
-}
-
-/* Helper to execute fade out only once. (workaround)*/
-var blocker = false;
-
-function changePage(newPage, fade) {
-    changePageHash(newPage, fade, true);
-}
-
-function changePageHash(newPage, fade, updateHash) {
-    if (currentPage == newPage) {
-        return; // no page change
-    }
-    if (fade === undefined) {
-        fade = true; // default value
-    }
-    console.log("Changing pages from " + currentPage + " to " + newPage);
-    if (currentPage === null) {
-        currentPage = newPage;
-        if (updateHash) hash(toHash(currentPage));
-        hideAllPages();
-        // only fade in new page if fade is true
-        if (fade) {
-            $(toClass(newPage)).fadeIn(FADE_TIME);
-            INIT_PAGE(newPage);
-        }
-        else {
-            $(toClass(newPage)).show();
-            INIT_PAGE(newPage);
-        }
-    } else if (fade) {
-        // fade out current page then fade in new page
-        blocker = false;
-        $(toClass(currentPage)).fadeOut(FADE_TIME, function() {
-            if (blocker) {
-                return;
-            }
-            blocker = true;
-            hideAllPages();
-            currentPage = newPage;
-            if (updateHash) hash(toHash(currentPage)); // update hash
-            $(toClass(currentPage)).fadeIn(FADE_TIME);
-            INIT_PAGE(currentPage);
-        });
-    } else {
-        // just change pages
-        currentPage = newPage;
-        if (updateHash) hash(toHash(currentPage));
-        hideAllPages();
-        $(toClass(newPage)).show();
-        INIT_PAGE(newPage);
-    }
-}
 
 function updateMenu(active) {
     $("#navbar>ul>li").removeClass("active");
     $(active).addClass("active");
-    //if ($("#navbar").has("in")) {
-    //    $(".navbar-toggle").click(); // hide navbar
-    //}
-        
+    // hide navbar if it is visible
+    if ($("#navbar").hasClass("in")) {
+        $(".navbar-toggle:visible").click();
+    }
 }
 
-function hideAlerts() {
-    $(".alert-hidden").hide();
-}
+/* Manages challenge storage. */
+var Storage = {
+    challenges: [],
+    challengesById: {}, // loaded challenges
+    requestChallenge: function (challengeId, callback) {
+        var challenge = this.challengesById[challengeId]; // challenge already loaded?
+        if (this.challenges[challengeId]) {
+            // already loaded
+            callback(challenge);
+        } else {
+            // to load
+            loadChallenge(challengeId, function (loadedChallenge) {
+                // store loaded challenge
+                Storage.storeLoadedChallenge(loadedChallenge);
+                callback(loadedChallenge);
+            });
+        }
+    },
+    requestAllChallenges: function (callback) {
+        var obj = this;
+        requestChallenges(function (challenges) {
+            var i;
+            for (i = 0; i < challenges.length; i++) {
+                obj.storeLoadedChallenge(challenges[i]);
+            }
+            callback(challenges);
+        });
+    },
+    requestListChallenges: function (listOption, callback) {
+        console.log("Requesting list challenges.");
+
+        var data = {
+            list: listOption
+        };
+
+        $.ajax({
+            url: SERVER_URL + "/list",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (response) {
+                console.log("Ajax was successfull " + JSON.stringify(response));
+                callback(response.challenges);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("Error " + textStatus + " " + errorThrown);
+            }
+        });
+    },
+    /** Adds given challenge to the challenges array. */
+    storeLoadedChallenge: function (challengeToAdd) {
+        // TODO sort challenges array ?
+        this.challenges[this.challenges.length] = challengeToAdd;
+        this.challengesById[challengeToAdd._id] = challengeToAdd;
+    }
+};
+
 
 /*** Network ***/
 
@@ -394,10 +121,10 @@ function sendNewChallenge(challenge) {
         type: "POST",
         contentType: "application/json",
         data: data,
-        success: function(response) {
+        success: function (response) {
             console.log("Ajax was successfull " + JSON.stringify(response));
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log("Error " + textStatus + " " + errorThrown);
         }
     });
@@ -405,43 +132,41 @@ function sendNewChallenge(challenge) {
 
 /* Requests the challenge with the given id and calls the callback method with the challange as parameter and stores it.*/
 function loadChallenge(challengeId, callback) {
-    // TODO load challenges from server
     console.log("Loading challenge with id: " + challengeId);
     
-    /*var request = new XMLHttpRequest();
-    request.open("GET", SERVER_URL + "submit", true);
-    request.onreadystatechange = function() {
-        if (request.readyState == 4 && request.status == 200) {
-            console.log("Challenge recieved.");
-            var challenge = JSON.parse(request.responseText).challenge;
-            storedChallenges[challenge.id] = challenge; // store challenge
-            callback(challenge);
-        }
+    var data = {
+        challengeId: challengeId
     };
-    request.send();*/
-        
+    ajaxRequest(SERVER_URL + "/load", data, function (response) {
+        if (response.status == "success") {
+            callback(response.challenge); // extract challenge
+        } else {
+            console.log("Invalid id - changing screen");
+            changePage(DEFAULT_PAGE);
+        }
+    });
+    
 }
 
-/* Requests challenges from the server. */
-function requestChallenges(callback) {
-    console.log("Requesting challenges.");
-    // as test
-    
-    var data = {list: "all"};
-    
+function ajaxRequest(url, data, successCallback) {
     $.ajax({
-        url: SERVER_URL + "/list",
+        url: url,
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(data),
-        success: function(response) {
-            console.log("Ajax was successfull " + JSON.stringify(response));
-            callback(response.challenges);
+        success: function (response) {
+            console.log("Ajax response: " + JSON.stringify(response));
+            successCallback(response);
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log("Error " + textStatus + " " + errorThrown);
         }
     });
+}
+
+/* Requests all challenges from the server. The callback will get all challenges as an array. */
+function requestChallenges(callback) {
+    Storage.requestListChallenges("all", callback);
 }
 
 
@@ -450,7 +175,7 @@ function requestChallenges(callback) {
 /* Helper method to change the hash of the url (ie. used in buttons to change page) */
 function hash(h) {
     // only change if necessary
-    if (h == location.hash) {
+    if (h === location.hash) {
         return;
     }
     location.hash = h;
@@ -480,32 +205,167 @@ function endsWith(string, ending) {
     return true;
 }
 
+/*** Ajax (dynamic page changing) ***/
+/* It is assumed that all html content is in the HTML_PAGE_DIRECTORY */
+
+/* Loads the page which is defined by the page url property. */
+function loadAjaxPage() {
+    var page = getPageURLParameter();
+    if (!page) {
+        // no page available - load default page
+        page = DEFAULT_PAGE;
+    }
+    // apply page
+    loadPage(page);
+}
+
+/* Loads the given page */
+function loadPage(page) {
+    console.log("Loading page " + page);
+    var hashUrl = page.split("#");
+    var pageUrl = HTML_PAGE_DIRECTORY + hashUrl[0] + ".html"; // construct page url
+
+    
+    var newUrl = updatePageURLParameter(page);
+    /*if (url.length === 2) {
+        //newUrl += url[1]; // append hash
+        location.hash = url[1]; // set hash
+    } else {
+        location.hash = "";
+    }*/
+    
+    
+    //to change the browser URL to the given link location
+    if (newUrl != window.location){
+        window.history.pushState({path:newUrl},'',newUrl);
+    }
+    
+    
+    $("#main-content").load(pageUrl, function (response, status, xhr) {
+        $("#loading").hide();
+        if (status == "success") {
+            console.log("Page content loaded for " + pageUrl);
+            applyLinkAction("#main-content");
+        } else {
+            console.error("Page loading error.");
+            $("#main-content").load("./html/error.html");
+        }
+    });
+    
+}
+
+// TODO only make elements with a[rel="tab"] clickable
+/* Redefines the action for all link elements (<a>) so they will change the ajax page respectively. */
+function applyLinkAction(rootElement) {
+    console.log("Redefining links for element " + rootElement);
+    $(rootElement + " a[rel='content']").click(linkContentAction);
+}
+
+function linkContentAction() {
+    console.log("Calling link action for " + this);
+    // clear hash information (a new hash me be included in the link)
+    window.location.hash = "";
+    var pageUrl = $(this).attr("href");
+    console.log("Clicked on " + pageUrl);
+
+    try {
+        loadPage(pageUrl);
+    } catch (ex) {
+        // TODO show ERROR page
+        console.error("Error loading page");
+    }
+    //linkContentAction();
+    return false;
+}
+
+/* Override backbutton */
+$(window).bind('popstate', function() {
+    loadAjaxPage();
+});
+
+function getURLParameter(name) {
+    var value = decodeURIComponent((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, ""])[1]);
+    return (value !== 'null') ? value : false;
+}
+
+function updateURLParameter(url, param, paramVal) {
+    var TheAnchor = null;
+    var newAdditionalURL = "";
+    var tempArray = url.split("?");
+    var baseURL = tempArray[0];
+    var additionalURL = tempArray[1];
+    var temp = "";
+
+    if (additionalURL) {
+        var tmpAnchor = additionalURL.split("#");
+        var TheParams = tmpAnchor[0];
+        TheAnchor = tmpAnchor[1];
+        if (TheAnchor)
+            additionalURL = TheParams;
+
+        tempArray = additionalURL.split("&");
+
+        for (i = 0; i < tempArray.length; i++) {
+            if (tempArray[i].split('=')[0] != param) {
+                newAdditionalURL += temp + tempArray[i];
+                temp = "&";
+            }
+        }
+    } else {
+        var tmpAnchor = baseURL.split("#");
+        var TheParams = tmpAnchor[0];
+        TheAnchor = tmpAnchor[1];
+
+        if (TheParams)
+            baseURL = TheParams;
+    }
+
+    if (TheAnchor)
+        paramVal += "#" + TheAnchor;
+
+    var rows_txt = temp + "" + param + "=" + paramVal;
+    return baseURL + "?" + newAdditionalURL + rows_txt;
+}
+
+function updatePageURLParameter(newPage) {
+    var response = updateURLParameter(window.location.href, "page", newPage);
+    console.log("Updated page url to " + newPage + ": " + response);
+    return response;
+}
+
+function getPageURLParameter() {
+    return getURLParameter("page");
+}
+
 
 /*** Init ***/
 
-/* Hide all pages but the landing page. */
 function initialize() {
     console.log("Initializing...");
-    hideAllPages();
     // show the container which shows all pages
     // (it is hidden in the beginning to prevent overlapping of pages on start up)
     $(".start-hidden").show();
     
-    // determine the page to be shown
-    if (location.hash) {
-        // locationHashChanged() will be called automatically by the system
-        locationHashChanged(); // there is a hashtag in the url
-        //changePage("home-page", false); // default page to show
-    } else {
-        changePage(DEFAULT_PAGE, false); // default page to show
-    }
+    
+    applyLinkAction("*"); // start using all link elements
+    loadAjaxPage();
     
     // activate tooltips
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip();
     
-    // recieve hash changes
-    window.onhashchange = locationHashChanged;
+    /*$(".navbar-fixed-top").autoHidingNavbar({
+    });*/
 
+    // jQuery to collapse the navbar on scroll
+    $(window).scroll(function() {
+        if ($(".navbar").offset().top > 8) {
+            $(".navbar-fixed-top").addClass("top-nav-collapse");
+        } else {
+            $(".navbar-fixed-top").removeClass("top-nav-collapse");
+        }
+    });
 }
 
 $(document).ready = initialize();
+
+

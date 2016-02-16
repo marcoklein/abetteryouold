@@ -1,0 +1,15 @@
+html, body {
+    /*background-image: url(../img/sandstone.jpg);*/
+    background-color: #00A1CB;
+}
+
+label {
+    font-weight: bold;
+}
+
+.container > .well {
+    border-color: #113F8C;
+    background: #113F8C;
+    font-weight: bold;
+    color: white;
+}
